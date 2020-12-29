@@ -1,0 +1,599 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) {
+  window.location.href = 'https://support.dmeng.net/upgrade-your-browser.html';
+}</script><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.4.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.4.0" type="image/png" sizes="32x32"><meta name="description" content="本文讲述了两个数字逻辑电路设计： ①数字电子钟，结合 Logisim 软件；②路灯巡回检测器，结合 Verilog 语言，使用 FPGA 开发板">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《数字逻辑》课程设计报告">
+<meta property="og:url" content="https://www.xxdiandeng.cn/2020/12/02/Course-design-of-digital-logic/index.html">
+<meta property="og:site_name" content="星星点灯的技术栈">
+<meta property="og:description" content="本文讲述了两个数字逻辑电路设计： ①数字电子钟，结合 Logisim 软件；②路灯巡回检测器，结合 Verilog 语言，使用 FPGA 开发板">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201229214732581.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201229214751492.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201229215136658.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201229215215307.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201229215237491.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201229215302132.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201229215320745.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201229215414757.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020122921545320.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201229220253874.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201229220425113.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201229220546662.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201229220602917.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-12-02T14:11:11.000Z">
+<meta property="article:modified_time" content="2020-12-29T14:26:08.982Z">
+<meta property="article:author" content="点灯君">
+<meta property="article:tag" content="课程设计">
+<meta property="article:tag" content="FPGA">
+<meta property="article:tag" content="数字电路">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201229214732581.png"><title>《数字逻辑》课程设计报告 | 星星点灯的技术栈</title><link ref="canonical" href="https://www.xxdiandeng.cn/2020/12/02/Course-design-of-digital-logic/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"80px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: true,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fab fa-pagelines"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-history"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-sort-alpha-down"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="far fa-smile-wink"></i></span><span class="header-nav-menu-item__text">关于</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/about/"><span class="header-nav-submenu-item__icon"><i class="far fa-user"></i></span><span class="header-nav-submenu-item__text">作者</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" target="_blank" rel="noopener" href="https://blog.csdn.net/HsingYang"><span class="header-nav-submenu-item__icon"><i class="fab fa-cuttlefish"></i></span><span class="header-nav-submenu-item__text">CSDN</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">《数字逻辑》课程设计报告</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-12-02</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-12-29</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.9k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">11分</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/12/02/Course-design-of-digital-logic/" data-flag-title="《数字逻辑》课程设计报告"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="题目一数字电子钟设计"   >
+          <a href="#题目一数字电子钟设计" class="heading-link"><i class="fas fa-link"></i></a>题目一：数字电子钟设计</h1>
+      
+
+        <h2 id="设计任务及要求"   >
+          <a href="#设计任务及要求" class="heading-link"><i class="fas fa-link"></i></a>设计任务及要求</h2>
+      
+<ol>
+<li>任务<br />
+用计数器设计一个电子钟，显示时、分、秒。</li>
+<li>要求<br />
+（1） 小时为 00-23 二十四进制计数器，分、秒为 00-59 六十进制计数器；<br />
+（2） 用八段数码管进行显示时、分、秒。<br />
+（3） 用 Logisim 画图，并进行仿真。要求能看到正确的时、分、秒信息。<br />
+（4） 先用 Logisim 软件仿真测试是否正确，再提交网站（EduCoder）测评。</li>
+</ol>
+
+        <h2 id="实验条件"   >
+          <a href="#实验条件" class="heading-link"><i class="fas fa-link"></i></a>实验条件</h2>
+      
+<ol>
+<li>Java Runtime Environment 环境</li>
+<li>Logisim虚拟数字电路仿真平台</li>
+</ol>
+
+        <h2 id="设计过程"   >
+          <a href="#设计过程" class="heading-link"><i class="fas fa-link"></i></a>设计过程</h2>
+      
+
+        <h3 id="设计原理与思路"   >
+          <a href="#设计原理与思路" class="heading-link"><i class="fas fa-link"></i></a>设计原理与思路</h3>
+      
+
+        <h4 id="4位递增计数器的设计"   >
+          <a href="#4位递增计数器的设计" class="heading-link"><i class="fas fa-link"></i></a>4位递增计数器的设计</h4>
+      
+<p>数字电子钟的基本组成单元由4位递增计数器构成，在进行其他器件设计前，先要完成4位递增计数器的设计。<br />
+计数是一种最简单的基本运算。计数器就是实现这种运算的逻辑电路，计数器在数字系统中主要是对脉冲的个数进行计数，以实现测量、计数和控制的功能，同时兼有分频功能。计数器在数字系统中应用广泛，如在电子计算机的控制器中对指令地址进行计数，以便顺序取出下一条指令，等等。<br />
+这里设计了一个带有同步置数、异步清零功能的4位同步递增计数器。<br />
+引脚说明：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>信号</th>
+<th>输入输出</th>
+<th>位宽</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clock</td>
+<td>输入</td>
+<td>1位</td>
+<td>时钟脉冲，上升沿有效</td>
+</tr>
+<tr>
+<td>Reset</td>
+<td>输入</td>
+<td>1位</td>
+<td>异步清零端：Reset=1时，Q=0</td>
+</tr>
+<tr>
+<td>Enable</td>
+<td>输入</td>
+<td>1位</td>
+<td>使能端：Reset=0时，Enable=1递增计数、0保持</td>
+</tr>
+<tr>
+<td>Load</td>
+<td>输入</td>
+<td>1位</td>
+<td>同步置数端：Reset=0、Load=1、Clock上升沿时，Q=D</td>
+</tr>
+<tr>
+<td>D</td>
+<td>输入</td>
+<td>4位</td>
+<td>并行数据加载端</td>
+</tr>
+<tr>
+<td>Q</td>
+<td>输出</td>
+<td>4位</td>
+<td>状态输出端</td>
+</tr>
+</tbody>
+</table></div>
+<p>具有并行加载功能的计数器原理如下图所示：<br />
+<img src="https://img-blog.csdnimg.cn/20201229214732581.png" alt="" /><br />
+将4位递增计数器封装后的外观：<br />
+<img src="https://img-blog.csdnimg.cn/20201229214751492.png" alt="" /></p>
+
+        <h4 id="六进制计数器的设计"   >
+          <a href="#六进制计数器的设计" class="heading-link"><i class="fas fa-link"></i></a>六进制计数器的设计</h4>
+      
+<p>六进制计数器可由4位递增计数器构成，当4位递增计数器计数到6时，异步清零使Q=0，这样就完成了六进制计数器的功能。<br />
+六进制计数器是构成六十进制计数器的基础。</p>
+
+        <h4 id="十进制计数器的设计"   >
+          <a href="#十进制计数器的设计" class="heading-link"><i class="fas fa-link"></i></a>十进制计数器的设计</h4>
+      
+<p>十进制计数器可由4位递增计数器构成，当4位递增计数器计数到10时，异步清零使Q=0，这样就完成了十进制计数器的功能。<br />
+十进制计数器是构成六十进制计数器的基础。</p>
+
+        <h4 id="六十进制计数器的设计"   >
+          <a href="#六十进制计数器的设计" class="heading-link"><i class="fas fa-link"></i></a>六十进制计数器的设计</h4>
+      
+<p>六十进制计数器可由六进制计数器和十进制计数器构成，10进制计数器的进位输出端是六进制计数器的使能端（Enable）触发条件，每十次触发一次6进制计数器，而6进制计数器本身最大计数为6，这样就完成了六十进制计数器的功能。<br />
+六十进制计数器是构成数字电子钟的基础。</p>
+
+        <h4 id="24进制计数器的设计"   >
+          <a href="#24进制计数器的设计" class="heading-link"><i class="fas fa-link"></i></a>24进制计数器的设计</h4>
+      
+<p>24进制计数器可由两个十进制计数器构成。<br />
+可用第一个十进制表示个位，记为计数器A。第二个十进制计数器表示十位，记为计数器B。<br />
+计数器A的进位输出端是计数器B的使能端（Enable）触发条件，每十次触发一次计数器B，同时，检测计数器A和B的状态输出端，当状态值为23时，使整个电路的进位输出端为1，当状态值为24时，异步清零，使计数器A和B的Q均为0。这样就完成了24进制计数器的功能。<br />
+24进制计数器是构成数字电子钟的基础。</p>
+
+        <h4 id="数字电子钟的设计"   >
+          <a href="#数字电子钟的设计" class="heading-link"><i class="fas fa-link"></i></a>数字电子钟的设计</h4>
+      
+<p>数字电子钟由小时（0-23）、分钟（0-59）、秒（0-60）构成。<br />
+秒由六十进制计数器构成，计数的条件是时钟的滴答。所以，在实际仿真的时候，可以调整时钟频率为1Hz，使其符合1秒1次的计数规则。<br />
+分钟由六十进制计数器构成，计数的条件是当秒钟产生进位。<br />
+小时由24进制计数器构成，计数的条件是当分钟和秒钟同时产生进位。<br />
+在实际仿真中，用16进制数字显示器件（Hex Digit Display）显示上述器件产生的状态，这样就完成了数字电子钟的功能和设计。</p>
+
+        <h3 id="逻辑电路图"   >
+          <a href="#逻辑电路图" class="heading-link"><i class="fas fa-link"></i></a>逻辑电路图</h3>
+      
+<p>4位递增计数器：<br />
+<img src="https://img-blog.csdnimg.cn/20201229215136658.png" alt="" /><br />
+六进制计数器：<br />
+<img src="https://img-blog.csdnimg.cn/20201229215215307.png" alt="" /><br />
+十进制计数器：<br />
+<img src="https://img-blog.csdnimg.cn/20201229215237491.png" alt="" /><br />
+六十进制计数器：<br />
+<img src="https://img-blog.csdnimg.cn/20201229215302132.png" alt="" /><br />
+24进制计数器：<br />
+<img src="https://img-blog.csdnimg.cn/20201229215320745.png" alt="" /><br />
+数字电子钟：<br />
+<img src="https://img-blog.csdnimg.cn/20201229215414757.png" alt="" /></p>
+
+        <h2 id="实验测试"   >
+          <a href="#实验测试" class="heading-link"><i class="fas fa-link"></i></a>实验测试</h2>
+      
+<p>将Clock信号，由手动点击改为时钟连续，将使能端Enable启动，然后进行测试：<br />
+<img src="https://img-blog.csdnimg.cn/2020122921545320.png" alt="" /></p>
+
+        <h1 id="题目二路灯巡回检测器"   >
+          <a href="#题目二路灯巡回检测器" class="heading-link"><i class="fas fa-link"></i></a>题目二：路灯巡回检测器</h1>
+      
+
+        <h2 id="设计任务及要求-2"   >
+          <a href="#设计任务及要求-2" class="heading-link"><i class="fas fa-link"></i></a>设计任务及要求</h2>
+      
+<ol>
+<li>任务<br />
+用 Verilog 语言设计 8 个路灯巡回检测电路。</li>
+<li>要求
+<ol>
+<li>巡回检测 8 个路灯，并用 8 个 LED 灯显示好坏。路灯正常时对应的 LED 灯熄灭，路灯故障时对应的 LED 灯点亮；</li>
+<li>能够迅速、准确地判出哪一个路灯坏，并用一个七段数码管显示出故障 灯的总数；</li>
+<li>有启动停止开关。</li>
+<li>自行绑定开发板的管脚，并下载到开发板上观察实际效果。</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="实验条件-2"   >
+          <a href="#实验条件-2" class="heading-link"><i class="fas fa-link"></i></a>实验条件</h2>
+      
+<ol>
+<li>Verilog编程和EDA设计工具：Altera Quartus Ⅱ 11.0</li>
+<li>FPGA开发板：Altera DE2-115</li>
+</ol>
+
+        <h2 id="设计过程-2"   >
+          <a href="#设计过程-2" class="heading-link"><i class="fas fa-link"></i></a>设计过程</h2>
+      
+
+        <h3 id="设计原理和思路"   >
+          <a href="#设计原理和思路" class="heading-link"><i class="fas fa-link"></i></a>设计原理和思路</h3>
+      
+<p>使用一个开关作为使能端，控制整个检测器的启动与停止。<br />
+当使能端关闭时，每个路灯无论其是否为故障状态，都不点亮对应的LED灯。同时，七段数码管也不点亮。<br />
+当使能端开启时，设定一个<code>cnt</code>作为计数器，使用<code>always</code>语句检测每一个路灯是否故障，如果该路灯故障，点亮对应的LED灯，并使<code>cnt</code>计数器（每次循环前，<code>cnt</code>置零）加<code>1</code>；如果该路灯不故障，用七段数码管<code>hex</code>显示<code>cnt</code>对应的数字。</p>
+
+        <h3 id="verilog代码"   >
+          <a href="#verilog代码" class="heading-link"><i class="fas fa-link"></i></a>Verilog代码</h3>
+      
+<figure class="highlight verilog"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> street_lamp_detector(w, hex, leds);</span><br><span class="line">    <span class="keyword">input</span> [<span class="number">8</span>:<span class="number">0</span>] w;</span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">3</span>:<span class="number">0</span>] cnt;</span><br><span class="line">    <span class="keyword">integer</span> k;</span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span>[<span class="number">0</span>:<span class="number">7</span>] leds;</span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">reg</span>[<span class="number">0</span>:<span class="number">6</span>] hex;</span><br><span class="line">    <span class="keyword">always</span> @(w, cnt)</span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">        cnt=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(w[<span class="number">8</span>] == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">for</span>(k = <span class="number">0</span>; k &lt; <span class="number">8</span>; k = k + <span class="number">1</span>)</span><br><span class="line">                    <span class="keyword">if</span>(w[k] == <span class="number">1</span>)</span><br><span class="line">                        <span class="keyword">begin</span></span><br><span class="line">                            leds[k] = <span class="number">1</span>;</span><br><span class="line">                            cnt = cnt + <span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">end</span></span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        leds[k] = <span class="number">0</span>;</span><br><span class="line">                        <span class="keyword">case</span> (cnt)</span><br><span class="line">                            <span class="number">0</span>: hex = <span class="number">7&#x27;b0000001</span>;</span><br><span class="line">                            <span class="number">1</span>: hex = <span class="number">7&#x27;b1001111</span>;</span><br><span class="line">                            <span class="number">2</span>: hex = <span class="number">7&#x27;b0010010</span>;</span><br><span class="line">                            <span class="number">3</span>: hex = <span class="number">7&#x27;b0000110</span>;</span><br><span class="line">                            <span class="number">4</span>: hex = <span class="number">7&#x27;b1001100</span>;</span><br><span class="line">                            <span class="number">5</span>: hex = <span class="number">7&#x27;b0100100</span>;</span><br><span class="line">                            <span class="number">6</span>: hex = <span class="number">7&#x27;b0100000</span>;</span><br><span class="line">                            <span class="number">7</span>: hex = <span class="number">7&#x27;b0001111</span>;</span><br><span class="line">                            <span class="number">8</span>: hex = <span class="number">7&#x27;b0000000</span>;</span><br><span class="line">                            <span class="keyword">default</span>: hex = <span class="number">7&#x27;b1111111</span>;</span><br><span class="line">                        <span class="keyword">endcase</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">begin</span></span><br><span class="line">                hex = <span class="number">7&#x27;b1111111</span>;</span><br><span class="line">                leds[<span class="number">0</span>:<span class="number">7</span>] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="实验测试-2"   >
+          <a href="#实验测试-2" class="heading-link"><i class="fas fa-link"></i></a>实验测试</h2>
+      
+
+        <h3 id="开发板引脚分配"   >
+          <a href="#开发板引脚分配" class="heading-link"><i class="fas fa-link"></i></a>开发板引脚分配</h3>
+      
+<p>引脚绑定设置如下：<br />
+<img   src="https://img-blog.csdnimg.cn/20201229220253874.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h3 id="联机调试"   >
+          <a href="#联机调试" class="heading-link"><i class="fas fa-link"></i></a>联机调试</h3>
+      
+<p>① 使能端Enable未启动（SW8为0）<br />
+此时，所有器件不工作：<br />
+<img src="https://img-blog.csdnimg.cn/20201229220425113.png" alt="" /><br />
+② 使能端Enable启动（SW8为1）<br />
+如下面两图所示，7端数码管HEX0可以根据正确显示：SW0-SW7的对应故障个数：<br />
+<img src="https://img-blog.csdnimg.cn/20201229220546662.png" alt="" /><br />
+<img   src="https://img-blog.csdnimg.cn/20201229220602917.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h1 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a>总结</h1>
+      
+<p>通过本次课程设计，掌握了有关同步时序电路的知识，了解了同步时序电路的基本设计步骤，并同通过这些知识设计出了基于时序电路的计数器，完成了数字电子钟的仿真设计。<br />
+通过本次课程设计，掌握了Verilog语言的基本特征，学习了<code>always</code>、<code>if</code>、<code>case</code>等语句。结合Altera ED2-115开发版，通过Verilog语言进行编程，最终实现了一个路灯巡回检测器。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://www.xxdiandeng.cn">点灯君</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://www.xxdiandeng.cn/2020/12/02/Course-design-of-digital-logic/">https://www.xxdiandeng.cn/2020/12/02/Course-design-of-digital-logic/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://www.xxdiandeng.cn/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://www.xxdiandeng.cn/tags/FPGA/">FPGA</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://www.xxdiandeng.cn/tags/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/">数字电路</a></span></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat">分享到： </div></div><div class="post-reward reward"><div class="reward-button">请我喝杯咖啡~</div><div class="reward-qrcode"><span class="reward-qrcode-alipay"><img class="reward-qrcode-alipay__img" src="/images/alipay.png"><div class="reward-qrcode-alipay__text">支付宝打赏</div></span><span class="reward-qrcode-wechat"><img class="reward-qrcode-wechat__img" src="/images/wechatpay.png"><div class="reward-qrcode-wechat__text">微信打赏</div></span></div></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/12/06/database-course-design/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">《数据库原理及应用》考查报告</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/10/09/Algorithm-Competition-1/"><span class="paginator-prev__text">算法竞赛1 ACM与算法入门</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E4%B8%80%E6%95%B0%E5%AD%97%E7%94%B5%E5%AD%90%E9%92%9F%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.</span> <span class="toc-text">
+          题目一：数字电子钟设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E4%BB%BB%E5%8A%A1%E5%8F%8A%E8%A6%81%E6%B1%82"><span class="toc-number">1.1.</span> <span class="toc-text">
+          设计任务及要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">
+          实验条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">
+          设计过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%9D%E8%B7%AF"><span class="toc-number">1.3.1.</span> <span class="toc-text">
+          设计原理与思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E4%BD%8D%E9%80%92%E5%A2%9E%E8%AE%A1%E6%95%B0%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">
+          4位递增计数器的设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AD%E8%BF%9B%E5%88%B6%E8%AE%A1%E6%95%B0%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">
+          六进制计数器的设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E8%AE%A1%E6%95%B0%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">
+          十进制计数器的设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AD%E5%8D%81%E8%BF%9B%E5%88%B6%E8%AE%A1%E6%95%B0%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">
+          六十进制计数器的设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#24%E8%BF%9B%E5%88%B6%E8%AE%A1%E6%95%B0%E5%99%A8%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.1.5.</span> <span class="toc-text">
+          24进制计数器的设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%94%B5%E5%AD%90%E9%92%9F%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.1.6.</span> <span class="toc-text">
+          数字电子钟的设计</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E5%9B%BE"><span class="toc-number">1.3.2.</span> <span class="toc-text">
+          逻辑电路图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%B5%8B%E8%AF%95"><span class="toc-number">1.4.</span> <span class="toc-text">
+          实验测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E4%BA%8C%E8%B7%AF%E7%81%AF%E5%B7%A1%E5%9B%9E%E6%A3%80%E6%B5%8B%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">
+          题目二：路灯巡回检测器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E4%BB%BB%E5%8A%A1%E5%8F%8A%E8%A6%81%E6%B1%82-2"><span class="toc-number">2.1.</span> <span class="toc-text">
+          设计任务及要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%9D%A1%E4%BB%B6-2"><span class="toc-number">2.2.</span> <span class="toc-text">
+          实验条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E8%BF%87%E7%A8%8B-2"><span class="toc-number">2.3.</span> <span class="toc-text">
+          设计过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86%E5%92%8C%E6%80%9D%E8%B7%AF"><span class="toc-number">2.3.1.</span> <span class="toc-text">
+          设计原理和思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#verilog%E4%BB%A3%E7%A0%81"><span class="toc-number">2.3.2.</span> <span class="toc-text">
+          Verilog代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%B5%8B%E8%AF%95-2"><span class="toc-number">2.4.</span> <span class="toc-text">
+          实验测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E6%9D%BF%E5%BC%95%E8%84%9A%E5%88%86%E9%85%8D"><span class="toc-number">2.4.1.</span> <span class="toc-text">
+          开发板引脚分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%94%E6%9C%BA%E8%B0%83%E8%AF%95"><span class="toc-number">2.4.2.</span> <span class="toc-text">
+          联机调试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">
+          总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/avatar.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">点灯君</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/DianDengJun" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/HsingYang" target="_blank" rel="noopener" data-popover="CSDN" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-cuttlefish"></i></span></a><a class="sidebar-ov-social-item" href="mailto:hsingyang@qq.com" target="_blank" rel="noopener" data-popover="邮箱" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=2812838110" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>点灯君</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" rel="noopener" target="_blank">皖ICP备20012253号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.3.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.4.0</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'hkHWPJDojPW5GzfOrjxlVO7j-gzGzoHsz',
+    appKey: 'igMm3PMMUpWh9KYa2Os2zAvs',
+    notify: true,
+    verify: true,
+    placeholder: '大佬请指教(❁´◡`❁)   <支持 MarkDown 语法>',
+    avatar: 'robohash',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.4.0"></script><script src="/js/stun-boot.js?v=2.4.0"></script><script src="/js/scroll.js?v=2.4.0"></script><script src="/js/header.js?v=2.4.0"></script><script src="/js/sidebar.js?v=2.4.0"></script><script type="application/json" src="/search.json"></script></body></html>

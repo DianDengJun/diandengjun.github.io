@@ -47,6 +47,29 @@
   </entry>
   
   <entry>
+    <title>《数字逻辑》课程设计报告</title>
+    <link href="https://www.xxdiandeng.cn/2020/12/02/Course-design-of-digital-logic/"/>
+    <id>https://www.xxdiandeng.cn/2020/12/02/Course-design-of-digital-logic/</id>
+    <published>2020-12-02T14:11:11.000Z</published>
+    <updated>2020-12-29T14:26:08.982Z</updated>
+    
+    
+    <summary type="html">本文讲述了两个数字逻辑电路设计： ①数字电子钟，结合 Logisim 软件；②路灯巡回检测器，结合 Verilog 语言，使用 FPGA 开发板</summary>
+    
+    
+    
+    <category term="计算机硬件" scheme="https://www.xxdiandeng.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A1%AC%E4%BB%B6/"/>
+    
+    
+    <category term="课程设计" scheme="https://www.xxdiandeng.cn/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"/>
+    
+    <category term="FPGA" scheme="https://www.xxdiandeng.cn/tags/FPGA/"/>
+    
+    <category term="数字电路" scheme="https://www.xxdiandeng.cn/tags/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>算法竞赛1 ACM与算法入门</title>
     <link href="https://www.xxdiandeng.cn/2020/10/09/Algorithm-Competition-1/"/>
     <id>https://www.xxdiandeng.cn/2020/10/09/Algorithm-Competition-1/</id>
