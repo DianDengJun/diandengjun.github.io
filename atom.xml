@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>星星点灯的技术栈</title>
+  <icon>https://www.xxdiandeng.cn/icon.png</icon>
+  <subtitle>Live Free , Unrestrained Without Fear.</subtitle>
+  <link href="https://www.xxdiandeng.cn/atom.xml" rel="self"/>
+  
+  <link href="https://www.xxdiandeng.cn/"/>
+  <updated>2020-12-27T01:16:56.430Z</updated>
+  <id>https://www.xxdiandeng.cn/</id>
+  
+  <author>
+    <name>点灯君</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《数据库原理及应用》考查报告</title>
+    <link href="https://www.xxdiandeng.cn/2020/12/06/database-course-design/"/>
+    <id>https://www.xxdiandeng.cn/2020/12/06/database-course-design/</id>
+    <published>2020-12-06T06:31:09.000Z</published>
+    <updated>2020-12-27T01:16:56.430Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;需求分析&quot;   &gt;
+          &lt;a href=&quot;#需求分析&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;需求分析&lt;/h1&gt;
+      
+&lt;p&gt;现要求开发电脑仓库管理系统。电脑仓库管理系统主要针对电脑的库存信息管理，对于仓库日常发生的业务，分为两大类，即入库和出库。经过数据库的设计后，用户通过相应的模块，对仓库进行简单的基本操作，即可轻松管理仓库。&lt;br /&gt;
+经过可行性分析和初步的需求调查，确定了系统的功能边界，该系统应能完成下面的功能：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;信息登记：在数据库中添加相关电脑、供货商、仓库的信息；&lt;/li&gt;
+&lt;li&gt;入库：增加电脑库存并生成入库记录；&lt;/li&gt;
+&lt;li&gt;出库：减少电脑库存并生成出库记录。&lt;/li&gt;
+&lt;/ol&gt;</summary>
+    
+    
+    
+    <category term="数据库" scheme="https://www.xxdiandeng.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="MySQL" scheme="https://www.xxdiandeng.cn/tags/MySQL/"/>
+    
+    <category term="课程设计" scheme="https://www.xxdiandeng.cn/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>算法竞赛1 ACM与算法入门</title>
+    <link href="https://www.xxdiandeng.cn/2020/10/09/Algorithm-Competition-1/"/>
+    <id>https://www.xxdiandeng.cn/2020/10/09/Algorithm-Competition-1/</id>
+    <published>2020-10-09T06:31:08.000Z</published>
+    <updated>2020-12-29T13:07:17.713Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;关于acm&quot;   &gt;
+          &lt;a href=&quot;#关于acm&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;关于ACM&lt;/h2&gt;
+      
+
+        &lt;h3 id=&quot;什么是acm&quot;   &gt;
+          &lt;a href=&quot;#什么是acm&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;什么是ACM&lt;/h3&gt;
+      
+&lt;center&gt;&lt;img   src=&quot;https://bkimg.cdn.bcebos.com/pic/b21bb051f8198618169533f649ed2e738ad4e6f6?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2U4MA==,g_7,xp_5,yp_5&quot; style=&quot;&quot;  alt=&quot;ACM LOGO&quot; height=&quot;100&quot;&gt;&lt;/center&gt;
+&lt;p&gt;国际大学生程序设计竞赛（英文全称：ACM International Collegiate Programming Contest），简称ACM或ICPC，是程序设计领域&lt;code&gt;级别最高&lt;/code&gt;的脑力竞赛，被冠以“程序设计的奥林匹克”。对参赛学生的逻辑分析能力、策略制定和脑力方面具有极大的挑战性，每年全球总冠军将获得“全世界最聪明的人”称号。经过30多年的发展，ACM国际大学生程序设计竞赛已经成为最具影响力的大学生计算机竞赛，在企业招聘以及学术深造都具有&lt;code&gt;极高的含金量&lt;/code&gt;。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法竞赛" scheme="https://www.xxdiandeng.cn/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/"/>
+    
+    
+    <category term="算法" scheme="https://www.xxdiandeng.cn/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>单向链表</title>
+    <link href="https://www.xxdiandeng.cn/2020/08/16/%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8/"/>
+    <id>https://www.xxdiandeng.cn/2020/08/16/%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8/</id>
+    <published>2020-08-16T05:53:21.000Z</published>
+    <updated>2020-10-10T04:32:04.679Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;何为单向链表&quot;   &gt;
+          &lt;a href=&quot;#何为单向链表&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;何为单向链表&lt;/h2&gt;
+      
+&lt;p&gt;链表是一种数据结构，你可以把它想象成一种动态的数组，此数组大小不固定，可以在需要时动态增加、删除元素。它解决了使用数组时大小固定不可更改的痛点。&lt;/p&gt;
+&lt;p&gt;&lt;img   src=&quot;https://img-blog.csdnimg.cn/20200816141744697.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70#pic_center&quot; style=&quot;width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;&quot;  alt=&quot;单向链表示意图&quot; /&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="2020暑假" scheme="https://www.xxdiandeng.cn/categories/2020%E6%9A%91%E5%81%87/"/>
+    
+    <category term="数据结构与算法" scheme="https://www.xxdiandeng.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="链表" scheme="https://www.xxdiandeng.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E9%93%BE%E8%A1%A8/"/>
+    
+    
+    <category term="C语言" scheme="https://www.xxdiandeng.cn/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+    <category term="数据结构" scheme="https://www.xxdiandeng.cn/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2020暑假自学2：数组</title>
+    <link href="https://www.xxdiandeng.cn/2020/07/19/2020%E6%9A%91%E5%81%87%E8%87%AA%E5%AD%A602/"/>
+    <id>https://www.xxdiandeng.cn/2020/07/19/2020%E6%9A%91%E5%81%87%E8%87%AA%E5%AD%A602/</id>
+    <published>2020-07-19T13:56:37.000Z</published>
+    <updated>2020-12-29T13:22:03.318Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;一维数组 &amp;amp; 二维数组&lt;/p&gt;
+&lt;p&gt;20道算法&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="2020暑假" scheme="https://www.xxdiandeng.cn/categories/2020%E6%9A%91%E5%81%87/"/>
+    
+    
+    <category term="算法" scheme="https://www.xxdiandeng.cn/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2020暑假自学1：基础算法回顾</title>
+    <link href="https://www.xxdiandeng.cn/2020/07/14/2020%E6%9A%91%E5%81%87%E8%87%AA%E5%AD%A601/"/>
+    <id>https://www.xxdiandeng.cn/2020/07/14/2020%E6%9A%91%E5%81%87%E8%87%AA%E5%AD%A601/</id>
+    <published>2020-07-14T09:18:32.000Z</published>
+    <updated>2020-12-29T13:25:45.044Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;欧几里得算法求最大公约数&lt;/li&gt;
+&lt;li&gt;筛法求素数&lt;/li&gt;
+&lt;li&gt;康托展开&lt;/li&gt;
+&lt;li&gt;逆康托展开&lt;/li&gt;
+&lt;li&gt;同余定理&lt;/li&gt;
+&lt;li&gt;高次方求模&lt;/li&gt;
+&lt;li&gt;三角形面积（海伦公式）&lt;/li&gt;
+&lt;li&gt;三点顺序&lt;/li&gt;
+&lt;/ol&gt;</summary>
+    
+    
+    
+    <category term="2020暑假" scheme="https://www.xxdiandeng.cn/categories/2020%E6%9A%91%E5%81%87/"/>
+    
+    
+    <category term="C语言" scheme="https://www.xxdiandeng.cn/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+    <category term="算法" scheme="https://www.xxdiandeng.cn/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2020全国大学生计算机技能应用大赛决赛C语言编程题摘录</title>
+    <link href="https://www.xxdiandeng.cn/2020/07/13/2020%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E8%83%BD%E5%A4%A7%E8%B5%9B/"/>
+    <id>https://www.xxdiandeng.cn/2020/07/13/2020%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E8%83%BD%E5%A4%A7%E8%B5%9B/</id>
+    <published>2020-07-13T09:16:35.000Z</published>
+    <updated>2020-12-29T13:14:54.624Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;记录决赛两道编程题，比赛时由于时间紧张和经验不足，未有效完成。&lt;br /&gt;
+现记录并完善。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="编程题" scheme="https://www.xxdiandeng.cn/categories/%E7%BC%96%E7%A8%8B%E9%A2%98/"/>
+    
+    
+    <category term="C语言" scheme="https://www.xxdiandeng.cn/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>免费领阿里云服务器？</title>
+    <link href="https://www.xxdiandeng.cn/2020/07/04/%E5%85%8D%E8%B4%B9%E9%A2%86%E9%98%BF%E9%87%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9F/"/>
+    <id>https://www.xxdiandeng.cn/2020/07/04/%E5%85%8D%E8%B4%B9%E9%A2%86%E9%98%BF%E9%87%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9F/</id>
+    <published>2020-07-04T13:28:12.000Z</published>
+    <updated>2020-12-06T12:23:30.858Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;快！免费领取一年阿里云服务器！&lt;/p&gt;
+&lt;p&gt;仅限咱们学生党&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="操作" scheme="https://www.xxdiandeng.cn/categories/%E6%93%8D%E4%BD%9C/"/>
+    
+    <category term="linux" scheme="https://www.xxdiandeng.cn/categories/%E6%93%8D%E4%BD%9C/linux/"/>
+    
+    
+    <category term="服务器" scheme="https://www.xxdiandeng.cn/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    <category term="linux" scheme="https://www.xxdiandeng.cn/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在Win10 PC上安装Ubuntu 20.04 系统</title>
+    <link href="https://www.xxdiandeng.cn/2020/06/27/%E5%9C%A8Win10-PC%E4%B8%8A%E5%AE%89%E8%A3%85Ubuntu-20-04-%E7%B3%BB%E7%BB%9F/"/>
+    <id>https://www.xxdiandeng.cn/2020/06/27/%E5%9C%A8Win10-PC%E4%B8%8A%E5%AE%89%E8%A3%85Ubuntu-20-04-%E7%B3%BB%E7%BB%9F/</id>
+    <published>2020-06-26T16:00:00.000Z</published>
+    <updated>2020-12-29T13:13:44.700Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;本文仅适用于UEFI+GPT类型的PC，有关这方面的知识请自行了解。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+        &lt;h2 id=&quot;引言&quot;   &gt;
+          &lt;a href=&quot;#引言&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;引言&lt;/h2&gt;
+      
+
+        &lt;h3 id=&quot;为什么需要使用-linux-系统&quot;   &gt;
+          &lt;a href=&quot;#为什么需要使用-linux-系统&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;为什么需要使用 Linux 系统？&lt;/h3&gt;
+      
+&lt;p&gt;既已看到此文，我相信你一定有需求来使用linux系统了。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;linux是服务器首选操作系统&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;稳定、高效&lt;/p&gt;
+&lt;p&gt;linux系统相对windows系统稳定并且高效，服务器要求长时间运行不关机，显然windows系统不适和使用在服务器上。并且Linux系统更改大多数配置都无需重启服务器即可生效，这也确保了 Linux 服务器最短的停机时间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;开源&lt;/p&gt;
+&lt;p&gt;linux系统是开源的，你可以对系统进行自定义，以满足使用要求，这是Windows无法比拟的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;性能发挥&lt;/p&gt;
+&lt;p&gt;服务器端linux可自由配置GUI界面或者仅使用“&lt;strong&gt;终端&lt;/strong&gt;”进行管理，保证其对硬件配置需求低&lt;br /&gt;
+……&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</summary>
+    
+    
+    
+    <category term="操作" scheme="https://www.xxdiandeng.cn/categories/%E6%93%8D%E4%BD%9C/"/>
+    
+    <category term="linux" scheme="https://www.xxdiandeng.cn/categories/%E6%93%8D%E4%BD%9C/linux/"/>
+    
+    
+    <category term="linux" scheme="https://www.xxdiandeng.cn/tags/linux/"/>
+    
+    <category term="软件安装" scheme="https://www.xxdiandeng.cn/tags/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/"/>
+    
+    <category term="Ubuntu" scheme="https://www.xxdiandeng.cn/tags/Ubuntu/"/>
+    
+    <category term="操作系统" scheme="https://www.xxdiandeng.cn/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>冒泡排序</title>
+    <link href="https://www.xxdiandeng.cn/2020/06/26/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/"/>
+    <id>https://www.xxdiandeng.cn/2020/06/26/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</id>
+    <published>2020-06-25T16:00:00.000Z</published>
+    <updated>2020-12-29T13:12:19.544Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;要求&quot;   &gt;
+          &lt;a href=&quot;#要求&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;要求&lt;/h2&gt;
+      
+&lt;p&gt;输入n个整数，将它们从小到大排序后输出，要求使用冒泡排序算法。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="数据结构与算法" scheme="https://www.xxdiandeng.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="排序" scheme="https://www.xxdiandeng.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/"/>
+    
+    
+    <category term="C语言" scheme="https://www.xxdiandeng.cn/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+    <category term="算法" scheme="https://www.xxdiandeng.cn/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>选择排序</title>
+    <link href="https://www.xxdiandeng.cn/2020/06/25/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/"/>
+    <id>https://www.xxdiandeng.cn/2020/06/25/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/</id>
+    <published>2020-06-24T16:00:00.000Z</published>
+    <updated>2020-08-16T06:40:28.634Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;要求&quot;   &gt;
+          &lt;a href=&quot;#要求&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;要求&lt;/h2&gt;
+      
+&lt;p&gt;输入一个正整数n（1&amp;lt;n≤10），再输入n个整数，用选择排序法将它们从小到大排序后输出。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="数据结构与算法" scheme="https://www.xxdiandeng.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="排序" scheme="https://www.xxdiandeng.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F/"/>
+    
+    
+    <category term="C语言" scheme="https://www.xxdiandeng.cn/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+    <category term="算法" scheme="https://www.xxdiandeng.cn/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+</feed>

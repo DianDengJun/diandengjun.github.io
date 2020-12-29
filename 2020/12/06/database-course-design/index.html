@@ -1,0 +1,945 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) {
+  window.location.href = 'https://support.dmeng.net/upgrade-your-browser.html';
+}</script><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.4.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.4.0" type="image/png" sizes="32x32"><meta name="description" content="需求分析        现要求开发电脑仓库管理系统。电脑仓库管理系统主要针对电脑的库存信息管理，对于仓库日常发生的业务，分为两大类，即入库和出库。经过数据库的设计后，用户通过相应的模块，对仓库进行简单的基本操作，即可轻松管理仓库。 经过可行性分析和初步的需求调查，确定了系统的功能边界，该系统应能完成下面的功能：  信息登记：在数据库中添加相关电脑、供货商、仓库的信息； 入库：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《数据库原理及应用》考查报告">
+<meta property="og:url" content="https://www.xxdiandeng.cn/2020/12/06/database-course-design/index.html">
+<meta property="og:site_name" content="星星点灯的技术栈">
+<meta property="og:description" content="需求分析        现要求开发电脑仓库管理系统。电脑仓库管理系统主要针对电脑的库存信息管理，对于仓库日常发生的业务，分为两大类，即入库和出库。经过数据库的设计后，用户通过相应的模块，对仓库进行简单的基本操作，即可轻松管理仓库。 经过可行性分析和初步的需求调查，确定了系统的功能边界，该系统应能完成下面的功能：  信息登记：在数据库中添加相关电脑、供货商、仓库的信息； 入库：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201208174320996.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201208174431387.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201208174516238.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201208174532483.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201208174713372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201208215149439.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201208215404966.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201208215539132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201208215713696.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201208215900680.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201208220038527.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-12-06T06:31:09.000Z">
+<meta property="article:modified_time" content="2020-12-27T01:16:56.430Z">
+<meta property="article:author" content="点灯君">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="课程设计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201208174320996.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70"><title>《数据库原理及应用》考查报告 | 星星点灯的技术栈</title><link ref="canonical" href="https://www.xxdiandeng.cn/2020/12/06/database-course-design/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"80px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: true,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fab fa-pagelines"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-history"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-sort-alpha-down"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="far fa-smile-wink"></i></span><span class="header-nav-menu-item__text">关于</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/about/"><span class="header-nav-submenu-item__icon"><i class="far fa-user"></i></span><span class="header-nav-submenu-item__text">作者</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" target="_blank" rel="noopener" href="https://blog.csdn.net/HsingYang"><span class="header-nav-submenu-item__icon"><i class="fab fa-cuttlefish"></i></span><span class="header-nav-submenu-item__text">CSDN</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">《数据库原理及应用》考查报告</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-12-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-12-27</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">4.1k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">32分</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/12/06/database-course-design/" data-flag-title="《数据库原理及应用》考查报告"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body">
+        <h1 id="需求分析"   >
+          <a href="#需求分析" class="heading-link"><i class="fas fa-link"></i></a>需求分析</h1>
+      
+<p>现要求开发电脑仓库管理系统。电脑仓库管理系统主要针对电脑的库存信息管理，对于仓库日常发生的业务，分为两大类，即入库和出库。经过数据库的设计后，用户通过相应的模块，对仓库进行简单的基本操作，即可轻松管理仓库。<br />
+经过可行性分析和初步的需求调查，确定了系统的功能边界，该系统应能完成下面的功能：</p>
+<ol>
+<li>信息登记：在数据库中添加相关电脑、供货商、仓库的信息；</li>
+<li>入库：增加电脑库存并生成入库记录；</li>
+<li>出库：减少电脑库存并生成出库记录。</li>
+</ol>
+<a id="more"></a>
+
+        <h1 id="功能设计"   >
+          <a href="#功能设计" class="heading-link"><i class="fas fa-link"></i></a>功能设计</h1>
+      
+
+        <h2 id="顶层设计"   >
+          <a href="#顶层设计" class="heading-link"><i class="fas fa-link"></i></a>顶层设计</h2>
+      
+<p><img   src="https://img-blog.csdnimg.cn/20201208174320996.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h2 id="第0层设计"   >
+          <a href="#第0层设计" class="heading-link"><i class="fas fa-link"></i></a>第0层设计</h2>
+      
+<p><img   src="https://img-blog.csdnimg.cn/20201208174431387.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h2 id="入库设计"   >
+          <a href="#入库设计" class="heading-link"><i class="fas fa-link"></i></a>入库设计</h2>
+      
+<ul>
+<li>输入：待入库的电脑名称（型号）、存储该类电脑仓库名称、入库电脑数量</li>
+<li>输出：入库记录</li>
+<li>操作逻辑：
+<ol>
+<li>根据输入信息，检查电脑型号、仓库名称是否存在，若只要有一个不存在，拒绝入库请求；</li>
+<li>查询库存表中是否有记录，如果没有记录，那么认定为新库存信息，向库存中添加这一信息即可；如果有记录，那么将该记录的电脑数量数据项修改为入库后的数量即可。</li>
+</ol>
+</li>
+</ul>
+<p><img   src="https://img-blog.csdnimg.cn/20201208174516238.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h2 id="出库设计"   >
+          <a href="#出库设计" class="heading-link"><i class="fas fa-link"></i></a>出库设计</h2>
+      
+<ul>
+<li>输入：待出库的电脑名称（型号）、存储该类电脑仓库名称、出库电脑数量</li>
+<li>输出：出库记录</li>
+<li>操作逻辑：
+<ol>
+<li>根据输入信息，检查电脑型号、仓库名称是否存在，若只要有一个不存在，拒绝出库请求；</li>
+<li>查询库存表中是否有记录，如果没有记录，那么表示该仓库中没有存储这类电脑，拒绝出库请求；如果有记录，检测出库电脑数量是否大于库存数量，如果大于，表示库存不足，拒绝出库请求；如果有记录并且库存充足，那么将该记录的电脑数量数据项修改为出库后的数量即可。</li>
+</ol>
+</li>
+</ul>
+<p><img   src="https://img-blog.csdnimg.cn/20201208174532483.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h1 id="关系模型"   >
+          <a href="#关系模型" class="heading-link"><i class="fas fa-link"></i></a>关系模型</h1>
+      
+
+        <h2 id="e-r图"   >
+          <a href="#e-r图" class="heading-link"><i class="fas fa-link"></i></a>E-R图</h2>
+      
+<p><img   src="https://img-blog.csdnimg.cn/20201208174713372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h2 id="关系模型设计"   >
+          <a href="#关系模型设计" class="heading-link"><i class="fas fa-link"></i></a>关系模型设计</h2>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:left">关系名</th>
+<th style="text-align:left">属性及码</th>
+<th style="text-align:left">其他约束条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">供应商</td>
+<td style="text-align:left">供应商编号，供应商名称，供应商地址，供应商电话</td>
+<td style="text-align:left">1、 供应商名称不允许为空；2、 供应商电话不允许为空</td>
+</tr>
+<tr>
+<td style="text-align:left">电脑</td>
+<td style="text-align:left">电脑编号，电脑名称，电脑品牌，电脑单价，供货商编号</td>
+<td style="text-align:left">1、 电脑名称不允许为空；2、 电脑单价不允许为空；3、 供货商编号引用供货商中的供应商编号</td>
+</tr>
+<tr>
+<td style="text-align:left">仓库</td>
+<td style="text-align:left">仓库编号，仓库名称，仓库地址，仓库电话</td>
+<td style="text-align:left">1、 仓库名称不允许为空；2、 仓库电话不允许为空</td>
+</tr>
+<tr>
+<td style="text-align:left">库存</td>
+<td style="text-align:left">库存记录编号，电脑编号，仓库编号，电脑数量</td>
+<td style="text-align:left">1、 电脑编号引用电脑关系中的电脑编号；2、 仓库编号引用仓库关系中的仓库编号</td>
+</tr>
+<tr>
+<td style="text-align:left">入库记录</td>
+<td style="text-align:left">入库记录编号，请求入库电脑名称，仓库名称，入库数量，入库总金额，操作日期时间，是否为新型号电脑，成功入库否</td>
+<td style="text-align:left">1、 操作日期时间不允许为空；2、 入库否不允许为空</td>
+</tr>
+<tr>
+<td style="text-align:left">出库记录</td>
+<td style="text-align:left">出库记录编号，请求出库电脑名称，仓库名称，出库数量，操作日期时间，是否全部出库，成功出库否</td>
+<td style="text-align:left">1、 操作日期时间不允许为空；2、 成功出库否不允许为空</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h2 id="数据库表设计"   >
+          <a href="#数据库表设计" class="heading-link"><i class="fas fa-link"></i></a>数据库表设计</h2>
+      
+
+        <h3 id="supplier供应商表"   >
+          <a href="#supplier供应商表" class="heading-link"><i class="fas fa-link"></i></a>Supplier（供应商表）</h3>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>字段含义</th>
+<th>字段类型</th>
+<th>是否为空</th>
+<th>列级约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Supplier_ID</td>
+<td>供应商编号</td>
+<td>varchar(7)</td>
+<td>not null</td>
+<td>primary key</td>
+</tr>
+<tr>
+<td>Supplier_Name</td>
+<td>供应商名称</td>
+<td>varchar(30)</td>
+<td>not null</td>
+<td>unique</td>
+</tr>
+<tr>
+<td>Supplier_Address</td>
+<td>供应商地址</td>
+<td>varchar(50)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Supplier_Tel</td>
+<td>供应商电话</td>
+<td>Varchar(11)</td>
+<td>not null</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+
+        <h3 id="computer电脑表"   >
+          <a href="#computer电脑表" class="heading-link"><i class="fas fa-link"></i></a>Computer（电脑表）</h3>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>字段含义</th>
+<th>字段类型</th>
+<th>是否为空</th>
+<th>列级约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Computer_ID</td>
+<td>电脑编号</td>
+<td>varchar(6)</td>
+<td>not null</td>
+<td>primary key</td>
+</tr>
+<tr>
+<td>Computer_Name</td>
+<td>电脑名称</td>
+<td>varchar(30)</td>
+<td>not null</td>
+<td>unique</td>
+</tr>
+<tr>
+<td>Computer_Brand</td>
+<td>电脑品牌</td>
+<td>varchar(10)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Computer_Unit_Price</td>
+<td>电脑单价</td>
+<td>float</td>
+<td>not null</td>
+<td></td>
+</tr>
+<tr>
+<td>Supplier_ID</td>
+<td>供货商编号</td>
+<td>varchar(7)</td>
+<td>not null</td>
+<td>foreign key references Supplier (Supplier_ID)</td>
+</tr>
+</tbody>
+</table></div>
+
+        <h3 id="warehouse仓库表"   >
+          <a href="#warehouse仓库表" class="heading-link"><i class="fas fa-link"></i></a>Warehouse（仓库表）</h3>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>字段含义</th>
+<th>字段类型</th>
+<th>是否为空</th>
+<th>列级约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Warehouse_ID</td>
+<td>仓库编号</td>
+<td>varchar(6)</td>
+<td>not null</td>
+<td>primary key</td>
+</tr>
+<tr>
+<td>Warehouse_Name</td>
+<td>仓库名称</td>
+<td>varchar(30)</td>
+<td>not null</td>
+<td>unique</td>
+</tr>
+<tr>
+<td>Warehouse_Address</td>
+<td>仓库地址</td>
+<td>varchar(50)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Warehouse_Tel</td>
+<td>仓库电话</td>
+<td>varchar(11)</td>
+<td>not null</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+
+        <h3 id="stock库存表"   >
+          <a href="#stock库存表" class="heading-link"><i class="fas fa-link"></i></a>Stock（库存表）</h3>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>字段含义</th>
+<th>字段类型</th>
+<th>是否为空</th>
+<th>列级约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stock_ID</td>
+<td>库存记录编号</td>
+<td>varchar(6)</td>
+<td>not null</td>
+<td></td>
+</tr>
+<tr>
+<td>Computer_ID</td>
+<td>电脑编号</td>
+<td>varchar(6)</td>
+<td>not null</td>
+<td>foreign key references Computer(Computer_ID)</td>
+</tr>
+<tr>
+<td>Warehouse_ID</td>
+<td>仓库编号</td>
+<td>varchar(6)</td>
+<td>not null</td>
+<td>foreign key references Warehouse(Warehouse_ID)</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>电脑总数</td>
+<td>int</td>
+<td>not null</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>表级约束：primary key (Stock_ID, Computer_ID, Warehouse_ID)</p>
+
+        <h3 id="inputrecords入库记录表"   >
+          <a href="#inputrecords入库记录表" class="heading-link"><i class="fas fa-link"></i></a>InputRecords（入库记录表）</h3>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>字段含义</th>
+<th>字段类型</th>
+<th>是否为空</th>
+<th>列级约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>InputRecords_ID</td>
+<td>入库记录编号</td>
+<td>varchar(8)</td>
+<td>not null</td>
+<td>primary key</td>
+</tr>
+<tr>
+<td>Computer_Name</td>
+<td>请求入库电脑名称</td>
+<td>varchar(30)</td>
+<td>not null</td>
+<td></td>
+</tr>
+<tr>
+<td>Warehouse_Name</td>
+<td>仓库名称</td>
+<td>varchar(30)</td>
+<td>not null</td>
+<td></td>
+</tr>
+<tr>
+<td>Input_Number</td>
+<td>入库数量</td>
+<td>int</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Total_Money</td>
+<td>入库总金额</td>
+<td>float</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Input_DateTime</td>
+<td>操作日期时间</td>
+<td>datetime</td>
+<td>not null</td>
+<td></td>
+</tr>
+<tr>
+<td>isNewTypeComputer</td>
+<td>是否为新型号电脑</td>
+<td>bool</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>isSuccess</td>
+<td>成功入库否</td>
+<td>bool</td>
+<td>not null</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+
+        <h3 id="outputrecords出库记录表"   >
+          <a href="#outputrecords出库记录表" class="heading-link"><i class="fas fa-link"></i></a>OutputRecords（出库记录表）</h3>
+      
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>字段含义</th>
+<th>字段类型</th>
+<th>是否为空</th>
+<th>列级约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OutputRecords_ID</td>
+<td>出库记录编号</td>
+<td>varchar(8)</td>
+<td>not null</td>
+<td>primary key</td>
+</tr>
+<tr>
+<td>Computer_Name</td>
+<td>请求出库电脑名称</td>
+<td>varchar(30)</td>
+<td>not null</td>
+<td></td>
+</tr>
+<tr>
+<td>Warehouse_Name</td>
+<td>仓库名称</td>
+<td>varchar(30)</td>
+<td>not null</td>
+<td></td>
+</tr>
+<tr>
+<td>Output_Number</td>
+<td>出库数量</td>
+<td>int</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Output_DateTime</td>
+<td>操作日期时间</td>
+<td>datetime</td>
+<td>not null</td>
+<td></td>
+</tr>
+<tr>
+<td>isAllOutput</td>
+<td>是否全部出库完</td>
+<td>bool</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>isSuccess</td>
+<td>成功出库否</td>
+<td>bool</td>
+<td>not null</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+
+        <h1 id="mysql数据库代码实践"   >
+          <a href="#mysql数据库代码实践" class="heading-link"><i class="fas fa-link"></i></a>MySQL数据库代码实践</h1>
+      
+
+        <h2 id="建库-建表"   >
+          <a href="#建库-建表" class="heading-link"><i class="fas fa-link"></i></a>建库、建表</h2>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 数据库：WarehouseDB</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> WarehouseDB;</span><br><span class="line"><span class="keyword">use</span> WarehouseDB;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 表：供应商</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> Supplier</span><br><span class="line">(</span><br><span class="line">    Supplier_ID      <span class="built_in">varchar</span>(<span class="number">7</span>) primary <span class="keyword">key</span>,      <span class="comment">-- 供应商编号</span></span><br><span class="line">    Supplier_Name    <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">unique</span> <span class="keyword">not</span> <span class="literal">null</span>, <span class="comment">-- 供应商名称</span></span><br><span class="line">    Supplier_Address <span class="built_in">varchar</span>(<span class="number">50</span>),                 <span class="comment">-- 供应商地址</span></span><br><span class="line">    Supplier_Tel     <span class="built_in">varchar</span>(<span class="number">11</span>)        <span class="keyword">not</span> <span class="literal">null</span>  <span class="comment">-- 供应商电话</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 表：电脑</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> Computer</span><br><span class="line">(</span><br><span class="line">    Computer_ID         <span class="built_in">varchar</span>(<span class="number">6</span>) primary <span class="keyword">key</span>,      <span class="comment">-- 电脑编号</span></span><br><span class="line">    Computer_Name       <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">unique</span> <span class="keyword">not</span> <span class="literal">null</span>, <span class="comment">-- 电脑名称</span></span><br><span class="line">    Computer_Brand      <span class="built_in">varchar</span>(<span class="number">10</span>),                 <span class="comment">-- 电脑品牌</span></span><br><span class="line">    Computer_Unit_Price <span class="built_in">float</span>              <span class="keyword">not</span> <span class="literal">null</span>, <span class="comment">-- 电脑单价</span></span><br><span class="line">    Supplier_ID         <span class="built_in">varchar</span>(<span class="number">7</span>)         <span class="keyword">not</span> <span class="literal">null</span>, <span class="comment">-- 供货商编号</span></span><br><span class="line">    <span class="comment">-- 外码：Computer.Supplier_ID 参考自 Supplier.Supplier_ID</span></span><br><span class="line">    <span class="keyword">foreign</span> <span class="keyword">key</span> (Supplier_ID) <span class="keyword">references</span> Supplier (Supplier_ID)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 表：仓库</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> Warehouse</span><br><span class="line">(</span><br><span class="line">    Warehouse_ID      <span class="built_in">varchar</span>(<span class="number">6</span>) primary <span class="keyword">key</span>,      <span class="comment">-- 仓库编号</span></span><br><span class="line">    Warehouse_Name    <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">unique</span> <span class="keyword">not</span> <span class="literal">null</span>, <span class="comment">-- 仓库名称</span></span><br><span class="line">    Warehouse_Address <span class="built_in">varchar</span>(<span class="number">50</span>),                 <span class="comment">-- 仓库地址</span></span><br><span class="line">    Warehouse_Tel     <span class="built_in">varchar</span>(<span class="number">11</span>)        <span class="keyword">not</span> <span class="literal">null</span>  <span class="comment">-- 仓库电话</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 表：库存</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> Stock</span><br><span class="line">(</span><br><span class="line">    Stock_ID     <span class="built_in">varchar</span>(<span class="number">6</span>),   <span class="comment">-- 库存记录编号</span></span><br><span class="line">    Computer_ID  <span class="built_in">varchar</span>(<span class="number">6</span>),   <span class="comment">-- 电脑编号</span></span><br><span class="line">    Warehouse_ID <span class="built_in">varchar</span>(<span class="number">6</span>),   <span class="comment">-- 仓库编号</span></span><br><span class="line">    <span class="built_in">Number</span>       <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span>, <span class="comment">-- 电脑总数</span></span><br><span class="line">    <span class="comment">-- 主码构成：Stock_ID, Computer_ID, Warehouse_ID</span></span><br><span class="line">    primary <span class="keyword">key</span> (Stock_ID, Computer_ID, Warehouse_ID),</span><br><span class="line">    <span class="comment">-- 外码：Stock.Computer_ID 参考自 Computer.Computer_ID</span></span><br><span class="line">    <span class="keyword">foreign</span> <span class="keyword">key</span> (Computer_ID) <span class="keyword">references</span> Computer (Computer_ID),</span><br><span class="line">    <span class="comment">-- 外码：Stock.Warehouse_ID 参考自 Warehouse.Warehouse_ID</span></span><br><span class="line">    <span class="keyword">foreign</span> <span class="keyword">key</span> (Warehouse_ID) <span class="keyword">references</span> Warehouse (Warehouse_ID)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 表：入库记录</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> InputRecords</span><br><span class="line">(</span><br><span class="line">    InputRecords_ID   <span class="built_in">varchar</span>(<span class="number">8</span>) primary <span class="keyword">key</span>, <span class="comment">-- 入库记录编号</span></span><br><span class="line">    Computer_Name     <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="literal">null</span>,   <span class="comment">-- 请求入库电脑名称</span></span><br><span class="line">    Warehouse_Name    <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="literal">null</span>,   <span class="comment">-- 仓库名称</span></span><br><span class="line">    Input_Number      <span class="built_in">int</span>,                    <span class="comment">-- 入库数量</span></span><br><span class="line">    Total_Money       <span class="built_in">float</span>,                  <span class="comment">-- 入库总金额</span></span><br><span class="line">    Input_DateTime    datetime    <span class="keyword">not</span> <span class="literal">null</span>,   <span class="comment">-- 操作日期时间</span></span><br><span class="line">    isNewTypeComputer <span class="built_in">bool</span>,                   <span class="comment">-- 是否为新型号电脑</span></span><br><span class="line">    isSuccess         <span class="built_in">bool</span>        <span class="keyword">not</span> <span class="literal">null</span>    <span class="comment">-- 成功入库否</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 表：出库记录</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">Table</span> OutputRecords</span><br><span class="line">(</span><br><span class="line">    OutputRecords_ID <span class="built_in">varchar</span>(<span class="number">8</span>) primary <span class="keyword">key</span>, <span class="comment">-- 出库记录编号</span></span><br><span class="line">    Computer_Name    <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="literal">null</span>,   <span class="comment">-- 请求出库电脑名称</span></span><br><span class="line">    Warehouse_Name   <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="literal">null</span>,   <span class="comment">-- 仓库名称</span></span><br><span class="line">    Output_Number    <span class="built_in">int</span>,                    <span class="comment">-- 出库数量</span></span><br><span class="line">    Output_DateTime  datetime    <span class="keyword">not</span> <span class="literal">null</span>,   <span class="comment">-- 出库日期时间</span></span><br><span class="line">    isAllOutput      <span class="built_in">bool</span>,                   <span class="comment">-- 是否全部出库完</span></span><br><span class="line">    isSuccess        <span class="built_in">bool</span>        <span class="keyword">not</span> <span class="literal">null</span>    <span class="comment">-- 成功出库否</span></span><br><span class="line">);</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="编写存储过程"   >
+          <a href="#编写存储过程" class="heading-link"><i class="fas fa-link"></i></a>编写存储过程</h2>
+      
+
+        <h3 id="添加供货商"   >
+          <a href="#添加供货商" class="heading-link"><i class="fas fa-link"></i></a>添加供货商</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 添加供货商</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> AddSupplier(<span class="keyword">in</span> <span class="keyword">Name</span> <span class="built_in">varchar</span>(<span class="number">30</span>), <span class="keyword">in</span> Address <span class="built_in">varchar</span>(<span class="number">50</span>), <span class="keyword">in</span> Tel <span class="built_in">varchar</span>(<span class="number">11</span>))</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">declare</span> <span class="keyword">ID</span> <span class="built_in">int</span>(<span class="number">5</span>) zerofill;</span><br><span class="line">    <span class="comment">-- 生成ID号</span></span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">max</span>(<span class="keyword">cast</span>(<span class="keyword">substr</span>(Supplier_ID, <span class="number">3</span>) <span class="keyword">as</span> signed <span class="built_in">integer</span>))</span><br><span class="line">    <span class="keyword">into</span> <span class="keyword">ID</span></span><br><span class="line">    <span class="keyword">from</span> Supplier;</span><br><span class="line">    if ID is null then</span><br><span class="line">        <span class="keyword">set</span> <span class="keyword">ID</span> = <span class="number">1</span>;</span><br><span class="line">    else</span><br><span class="line">        <span class="keyword">set</span> <span class="keyword">ID</span> = <span class="keyword">ID</span> + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">    <span class="comment">-- 插入到Supplier表中</span></span><br><span class="line">    <span class="keyword">insert</span> <span class="keyword">into</span> Supplier</span><br><span class="line">        <span class="keyword">value</span> (<span class="keyword">concat</span>(<span class="string">&#x27;Su&#x27;</span>, <span class="keyword">ID</span>), <span class="keyword">Name</span>, Address, Tel);</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="添加仓库"   >
+          <a href="#添加仓库" class="heading-link"><i class="fas fa-link"></i></a>添加仓库</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 添加仓库</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> AddWarehouse(<span class="keyword">in</span> <span class="keyword">Name</span> <span class="built_in">varchar</span>(<span class="number">30</span>), <span class="keyword">in</span> Address <span class="built_in">varchar</span>(<span class="number">50</span>), <span class="keyword">in</span> Tel <span class="built_in">varchar</span>(<span class="number">11</span>))</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">declare</span> <span class="keyword">ID</span> <span class="built_in">int</span>(<span class="number">5</span>) zerofill;</span><br><span class="line">    <span class="comment">-- 生成ID号</span></span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">max</span>(<span class="keyword">cast</span>(<span class="keyword">substr</span>(Warehouse_ID, <span class="number">2</span>) <span class="keyword">as</span> signed <span class="built_in">integer</span>))</span><br><span class="line">    <span class="keyword">into</span> <span class="keyword">ID</span></span><br><span class="line">    <span class="keyword">from</span> Warehouse;</span><br><span class="line">    if ID is null then</span><br><span class="line">        <span class="keyword">set</span> <span class="keyword">ID</span> = <span class="number">1</span>;</span><br><span class="line">    else</span><br><span class="line">        <span class="keyword">set</span> <span class="keyword">ID</span> = <span class="keyword">ID</span> + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">    <span class="comment">-- 插入到Supplier表中</span></span><br><span class="line">    <span class="keyword">insert</span> <span class="keyword">into</span> Warehouse</span><br><span class="line">        <span class="keyword">value</span> (<span class="keyword">concat</span>(<span class="string">&#x27;W&#x27;</span>, <span class="keyword">ID</span>), <span class="keyword">Name</span>, Address, Tel);</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="添加电脑"   >
+          <a href="#添加电脑" class="heading-link"><i class="fas fa-link"></i></a>添加电脑</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 添加电脑</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> AddComputer(<span class="keyword">in</span> <span class="keyword">Name</span> <span class="built_in">varchar</span>(<span class="number">30</span>), <span class="keyword">in</span> Brand <span class="built_in">varchar</span>(<span class="number">10</span>), <span class="keyword">in</span> Price <span class="built_in">float</span>, <span class="keyword">in</span> SupplierName <span class="built_in">varchar</span>(<span class="number">30</span>))</span><br><span class="line">AddProcedure:</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="comment">-- 供货商ID</span></span><br><span class="line">    <span class="keyword">declare</span> SupplierID <span class="built_in">varchar</span>(<span class="number">7</span>);</span><br><span class="line">    <span class="comment">-- 要生成的电脑ID</span></span><br><span class="line">    <span class="keyword">declare</span> <span class="keyword">ID</span> <span class="built_in">int</span>(<span class="number">5</span>) zerofill;</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 查询对应供货商编号</span></span><br><span class="line">    <span class="keyword">select</span> Supplier_ID</span><br><span class="line">    <span class="keyword">into</span> SupplierID</span><br><span class="line">    <span class="keyword">from</span> Supplier</span><br><span class="line">    <span class="keyword">where</span> Supplier_Name = SupplierName;</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 检查供货商是否存在</span></span><br><span class="line">    if SupplierID is null then</span><br><span class="line">        <span class="keyword">rollback</span>; <span class="comment">-- 回滚事务</span></span><br><span class="line">        leave AddProcedure;</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 生成电脑ID</span></span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">max</span>(<span class="keyword">cast</span>(<span class="keyword">substr</span>(Computer_ID, <span class="number">2</span>) <span class="keyword">as</span> signed <span class="built_in">integer</span>))</span><br><span class="line">    <span class="keyword">into</span> <span class="keyword">ID</span></span><br><span class="line">    <span class="keyword">from</span> Computer;</span><br><span class="line">    if ID is null then</span><br><span class="line">        <span class="keyword">set</span> <span class="keyword">ID</span> = <span class="number">1</span>;</span><br><span class="line">    else</span><br><span class="line">        <span class="keyword">set</span> <span class="keyword">ID</span> = <span class="keyword">ID</span> + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 插入到Computer表中</span></span><br><span class="line">    <span class="keyword">insert</span> <span class="keyword">into</span> Computer</span><br><span class="line">        <span class="keyword">value</span> (<span class="keyword">concat</span>(<span class="string">&#x27;C&#x27;</span>, <span class="keyword">ID</span>), <span class="keyword">Name</span>, Brand, Price, SupplierID);</span><br><span class="line"><span class="keyword">end</span> AddProcedure;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="入库"   >
+          <a href="#入库" class="heading-link"><i class="fas fa-link"></i></a>入库</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 入库</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> Push(<span class="keyword">in</span> ComputerName <span class="built_in">varchar</span>(<span class="number">30</span>), <span class="keyword">in</span> WarehouseName <span class="built_in">varchar</span>(<span class="number">30</span>), <span class="keyword">in</span> PushNumber <span class="built_in">int</span>)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="comment">-- 库存中电脑编号</span></span><br><span class="line">    <span class="keyword">declare</span> ComputerID <span class="built_in">varchar</span>(<span class="number">6</span>);</span><br><span class="line">    <span class="comment">-- 库存中仓库编号</span></span><br><span class="line">    <span class="keyword">declare</span> WarehouseID <span class="built_in">varchar</span>(<span class="number">6</span>);</span><br><span class="line">    <span class="comment">-- 要生成的记录ID</span></span><br><span class="line">    <span class="keyword">declare</span> RecordsID <span class="built_in">int</span>(<span class="number">7</span>) zerofill;</span><br><span class="line">    <span class="comment">-- 当前库存数量</span></span><br><span class="line">    <span class="keyword">declare</span> CurrentNumber <span class="built_in">int</span>;</span><br><span class="line">    <span class="comment">-- 电脑单价</span></span><br><span class="line">    <span class="keyword">declare</span> UnitPrice <span class="built_in">float</span>;</span><br><span class="line">    <span class="comment">-- 入库总金额</span></span><br><span class="line">    <span class="keyword">declare</span> TotalMoney <span class="built_in">float</span>;</span><br><span class="line"></span><br><span class="line">    PUSH:</span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">        <span class="comment">-- 检查参数</span></span><br><span class="line">        CheckOut:</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">            <span class="comment">-- 查询对应电脑编号</span></span><br><span class="line">            <span class="keyword">select</span> Computer_ID</span><br><span class="line">            <span class="keyword">into</span> ComputerID</span><br><span class="line">            <span class="keyword">from</span> Computer</span><br><span class="line">            <span class="keyword">where</span> Computer_Name = ComputerName</span><br><span class="line">            <span class="keyword">limit</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">-- 查询对应仓库编号</span></span><br><span class="line">            <span class="keyword">select</span> Warehouse_ID</span><br><span class="line">            <span class="keyword">into</span> WarehouseID</span><br><span class="line">            <span class="keyword">from</span> Warehouse</span><br><span class="line">            <span class="keyword">where</span> Warehouse_Name = WarehouseName</span><br><span class="line">            <span class="keyword">limit</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">-- 检查电脑ID是否已存在</span></span><br><span class="line">            if ComputerID is null then</span><br><span class="line">                <span class="keyword">set</span> @isSuccess = <span class="literal">false</span>; <span class="comment">-- 标识请求未成功</span></span><br><span class="line">                leave PUSH;</span><br><span class="line">            <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">-- 检查仓库id是否已存在</span></span><br><span class="line">            if WarehouseID is null then</span><br><span class="line">                <span class="keyword">set</span> @isSuccess = <span class="literal">false</span>; <span class="comment">-- 标识请求未成功</span></span><br><span class="line">                leave PUSH;</span><br><span class="line">            <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">-- 查询当前库存数量</span></span><br><span class="line">            <span class="keyword">select</span> <span class="built_in">Number</span></span><br><span class="line">            <span class="keyword">INTO</span> CurrentNumber</span><br><span class="line">            <span class="keyword">from</span> Stock</span><br><span class="line">            <span class="keyword">where</span> Stock.Computer_ID = ComputerID</span><br><span class="line">              <span class="keyword">and</span> Stock.Warehouse_ID = WarehouseID;</span><br><span class="line"></span><br><span class="line">            <span class="comment">-- 查询电脑单价</span></span><br><span class="line">            <span class="keyword">select</span> Computer_Unit_Price</span><br><span class="line">            <span class="keyword">into</span> UnitPrice</span><br><span class="line">            <span class="keyword">from</span> Computer</span><br><span class="line">            <span class="keyword">where</span> Computer_Name = ComputerName;</span><br><span class="line"></span><br><span class="line">            <span class="comment">-- 计算入库总金额</span></span><br><span class="line">            <span class="keyword">set</span> TotalMoney = UnitPrice * PushNumber;</span><br><span class="line">        <span class="keyword">end</span> CheckOut;</span><br><span class="line"></span><br><span class="line">        <span class="comment">-- 入库</span></span><br><span class="line">        PushProcedure:</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">            <span class="keyword">set</span> @isSuccess = <span class="literal">true</span>; <span class="comment">-- 标记请求成功</span></span><br><span class="line">            if CurrentNumber is null then</span><br><span class="line">                <span class="comment">-- 新电脑入库</span></span><br><span class="line">                <span class="keyword">begin</span></span><br><span class="line">                    <span class="comment">-- 要生成的库存号</span></span><br><span class="line">                    <span class="keyword">declare</span> StockID <span class="built_in">int</span>(<span class="number">5</span>) zerofill;</span><br><span class="line">                    <span class="comment">-- 新电脑入库标记</span></span><br><span class="line">                    <span class="keyword">set</span> @isNew = <span class="literal">true</span>;</span><br><span class="line">                    <span class="comment">-- 生成库存号</span></span><br><span class="line">                    <span class="keyword">select</span> <span class="keyword">max</span>(<span class="keyword">cast</span>(<span class="keyword">substr</span>(Stock_ID, <span class="number">2</span>) <span class="keyword">as</span> signed <span class="built_in">integer</span>))</span><br><span class="line">                    <span class="keyword">into</span> StockID</span><br><span class="line">                    <span class="keyword">from</span> Stock;</span><br><span class="line">                    if StockID is null then</span><br><span class="line">                        <span class="keyword">set</span> StockID = <span class="number">1</span>;</span><br><span class="line">                    else</span><br><span class="line">                        <span class="keyword">set</span> StockID = StockID + <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">                    <span class="comment">-- 库存表更新</span></span><br><span class="line">                    <span class="keyword">insert</span> <span class="keyword">into</span> Stock</span><br><span class="line">                        <span class="keyword">value</span> (<span class="keyword">concat</span>(<span class="string">&#x27;S&#x27;</span>, StockID), ComputerID, WarehouseID, PushNumber);</span><br><span class="line">                <span class="keyword">end</span>;</span><br><span class="line">            else</span><br><span class="line">                <span class="keyword">begin</span></span><br><span class="line">                    <span class="comment">-- 查询该型号电脑的库存ID</span></span><br><span class="line">                    <span class="keyword">select</span> Stock_ID</span><br><span class="line">                    <span class="keyword">into</span> @CurrentID</span><br><span class="line">                    <span class="keyword">from</span> Stock</span><br><span class="line">                    <span class="keyword">where</span> Stock.Computer_ID = ComputerID</span><br><span class="line">                      <span class="keyword">and</span> Stock.Warehouse_ID = WarehouseID;</span><br><span class="line">                    <span class="comment">-- 库存表更新</span></span><br><span class="line">                    <span class="keyword">update</span> Stock</span><br><span class="line">                    <span class="keyword">set</span> <span class="built_in">Number</span> = <span class="built_in">Number</span> + PushNumber</span><br><span class="line">                    <span class="keyword">where</span> Stock_ID = @CurrentID;</span><br><span class="line">                    <span class="comment">-- 标记非新电脑入库</span></span><br><span class="line">                    <span class="keyword">set</span> @isNew = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">end</span>;</span><br><span class="line">            <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">        <span class="keyword">end</span> PushProcedure;</span><br><span class="line">    <span class="keyword">end</span> PUSH;</span><br><span class="line"></span><br><span class="line">    ReturnInfo:</span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">        <span class="comment">-- 生成入库记录ID</span></span><br><span class="line">        <span class="keyword">select</span> <span class="keyword">max</span>(<span class="keyword">cast</span>(<span class="keyword">substr</span>(InputRecords_ID, <span class="number">2</span>) <span class="keyword">as</span> signed <span class="built_in">integer</span>))</span><br><span class="line">        <span class="keyword">into</span> RecordsID</span><br><span class="line">        <span class="keyword">from</span> InputRecords;</span><br><span class="line">        if RecordsID is null then</span><br><span class="line">            <span class="keyword">set</span> RecordsID = <span class="number">1</span>;</span><br><span class="line">        else</span><br><span class="line">            <span class="keyword">set</span> RecordsID = RecordsID + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">-- 根据@isSuccess生成相应入库记录</span></span><br><span class="line">        if @isSuccess = true then</span><br><span class="line">            <span class="comment">-- 插入到记录表</span></span><br><span class="line">            <span class="keyword">insert</span> <span class="keyword">into</span> InputRecords</span><br><span class="line">            <span class="keyword">values</span> (<span class="keyword">concat</span>(<span class="string">&#x27;I&#x27;</span>, RecordsID), ComputerName,</span><br><span class="line">                    WarehouseName, PushNumber,</span><br><span class="line">                    TotalMoney, <span class="keyword">sysdate</span>(), @isNew, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">-- 展示本次请求信息</span></span><br><span class="line">            <span class="keyword">select</span> <span class="keyword">concat</span>(<span class="string">&#x27;I&#x27;</span>, RecordsID)      记录编号,</span><br><span class="line">                   ComputerName                请求入库电脑,</span><br><span class="line">                   WarehouseName               仓库,</span><br><span class="line">                   PushNumber                  入库数量,</span><br><span class="line">                   TotalMoney                  总金额,</span><br><span class="line">                   <span class="keyword">sysdate</span>()                   操作日期时间,</span><br><span class="line">                   <span class="keyword">if</span>(@isNew = <span class="literal">true</span>, <span class="string">&#x27;是&#x27;</span>, <span class="string">&#x27;否&#x27;</span>) 是否为新型号电脑,</span><br><span class="line">                   <span class="string">&#x27;是&#x27;</span>                         是否成功入库;</span><br><span class="line">        else</span><br><span class="line">            <span class="comment">-- 插入到记录表</span></span><br><span class="line">            <span class="keyword">insert</span> <span class="keyword">into</span> InputRecords</span><br><span class="line">            <span class="keyword">values</span> (<span class="keyword">concat</span>(<span class="string">&#x27;I&#x27;</span>, RecordsID), ComputerName,</span><br><span class="line">                    WarehouseName, PushNumber, <span class="literal">null</span>, <span class="keyword">sysdate</span>(), <span class="literal">null</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">-- 展示本次请求信息</span></span><br><span class="line">            <span class="keyword">select</span> <span class="keyword">concat</span>(<span class="string">&#x27;I&#x27;</span>, RecordsID) 记录编号,</span><br><span class="line">                   ComputerName           请求入库电脑,</span><br><span class="line">                   WarehouseName          仓库,</span><br><span class="line">                   PushNumber             入库数量,</span><br><span class="line">                   <span class="keyword">sysdate</span>()              操作日期时间,</span><br><span class="line">                   <span class="string">&#x27;否&#x27;</span>                    是否成功入库;</span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">    <span class="keyword">end</span> ReturnInfo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 提交事务</span></span><br><span class="line">    <span class="keyword">commit</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="出库"   >
+          <a href="#出库" class="heading-link"><i class="fas fa-link"></i></a>出库</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 出库</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> Pop(<span class="keyword">in</span> ComputerName <span class="built_in">varchar</span>(<span class="number">30</span>), <span class="keyword">in</span> WarehouseName <span class="built_in">varchar</span>(<span class="number">30</span>), <span class="keyword">in</span> PopNumber <span class="built_in">int</span>)</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="comment">-- 未出库前库存数量</span></span><br><span class="line">    <span class="keyword">declare</span> NumberInStock <span class="built_in">int</span>;</span><br><span class="line">    <span class="comment">-- 库存中电脑编号</span></span><br><span class="line">    <span class="keyword">declare</span> ComputerID <span class="built_in">varchar</span>(<span class="number">6</span>);</span><br><span class="line">    <span class="comment">-- 库存中仓库编号</span></span><br><span class="line">    <span class="keyword">declare</span> WarehouseID <span class="built_in">varchar</span>(<span class="number">6</span>);</span><br><span class="line">    <span class="comment">-- 要生成的记录ID</span></span><br><span class="line">    <span class="keyword">declare</span> RecordsID <span class="built_in">int</span>(<span class="number">7</span>) zerofill;</span><br><span class="line"></span><br><span class="line">    POP:</span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">        <span class="comment">-- 查询对应电脑编号</span></span><br><span class="line">        <span class="keyword">select</span> Computer_ID</span><br><span class="line">        <span class="keyword">into</span> ComputerID</span><br><span class="line">        <span class="keyword">from</span> Computer</span><br><span class="line">        <span class="keyword">where</span> Computer_Name = ComputerName</span><br><span class="line">        <span class="keyword">limit</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">-- 查询对应仓库编号</span></span><br><span class="line">        <span class="keyword">select</span> Warehouse_ID</span><br><span class="line">        <span class="keyword">into</span> WarehouseID</span><br><span class="line">        <span class="keyword">from</span> Warehouse</span><br><span class="line">        <span class="keyword">where</span> Warehouse_Name = WarehouseName</span><br><span class="line">        <span class="keyword">limit</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">-- 查询库存中的电脑数量</span></span><br><span class="line">        <span class="keyword">select</span> <span class="built_in">Number</span></span><br><span class="line">        <span class="keyword">into</span> NumberInStock</span><br><span class="line">        <span class="keyword">from</span> Stock</span><br><span class="line">        <span class="keyword">where</span> Computer_ID = ComputerID</span><br><span class="line">          <span class="keyword">and</span> Warehouse_ID = WarehouseID</span><br><span class="line">        <span class="keyword">limit</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">-- 库存中没有这种型号的电脑</span></span><br><span class="line">        if (NumberInStock is null) then</span><br><span class="line">            <span class="keyword">set</span> @isSuccess = <span class="literal">false</span>; <span class="comment">-- 标记请求失败</span></span><br><span class="line">            leave POP;</span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">        <span class="comment">-- 库存中电脑数量小于待出库电脑数量</span></span><br><span class="line">        if (NumberInStock &lt; PopNumber) then</span><br><span class="line">            <span class="keyword">set</span> @isSuccess = <span class="literal">false</span>; <span class="comment">-- 标记请求失败</span></span><br><span class="line">            leave POP;</span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">        <span class="comment">-- 库存中电脑数量等于待出库电脑数量</span></span><br><span class="line">        if (NumberInStock = PopNumber) then</span><br><span class="line">            <span class="keyword">set</span> @isAllOutput = <span class="literal">true</span>; <span class="comment">-- 全部出库完</span></span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line">        <span class="comment">-- 库存中电脑数量大于待出库电脑数量</span></span><br><span class="line">        if (NumberInStock &gt; PopNumber) then</span><br><span class="line">            <span class="keyword">set</span> @isAllOutput = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">-- 修改Stock表</span></span><br><span class="line">        <span class="keyword">update</span> Stock</span><br><span class="line">        <span class="keyword">set</span> <span class="built_in">Number</span> = <span class="built_in">Number</span> - PopNumber</span><br><span class="line">        <span class="keyword">where</span> Computer_ID = ComputerID</span><br><span class="line">          <span class="keyword">and</span> Warehouse_ID = WarehouseID;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">set</span> @isSuccess = <span class="literal">true</span>; <span class="comment">-- 标记请求成功</span></span><br><span class="line">    <span class="keyword">end</span> POP;</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 生成出库记录ID</span></span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">max</span>(<span class="keyword">cast</span>(<span class="keyword">substr</span>(OutputRecords_ID, <span class="number">2</span>) <span class="keyword">as</span> signed <span class="built_in">integer</span>))</span><br><span class="line">    <span class="keyword">into</span> RecordsID</span><br><span class="line">    <span class="keyword">from</span> OutputRecords;</span><br><span class="line">    if RecordsID is null then</span><br><span class="line">        <span class="keyword">set</span> RecordsID = <span class="number">1</span>;</span><br><span class="line">    else</span><br><span class="line">        <span class="keyword">set</span> RecordsID = RecordsID + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 根据@isSuccess生成相应入库记录</span></span><br><span class="line">    if @isSuccess = true then</span><br><span class="line">        <span class="comment">-- 生成出库记录</span></span><br><span class="line">        <span class="keyword">insert</span> <span class="keyword">into</span> OutputRecords</span><br><span class="line">        <span class="keyword">values</span> (<span class="keyword">concat</span>(<span class="string">&#x27;O&#x27;</span>, RecordsID), ComputerName,</span><br><span class="line">                WarehouseName, PopNumber, <span class="keyword">sysdate</span>(), @isAllOutput, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">-- 展示本次请求信息</span></span><br><span class="line">        <span class="keyword">select</span> <span class="keyword">concat</span>(<span class="string">&#x27;O&#x27;</span>, RecordsID)            记录编号,</span><br><span class="line">               ComputerName                      请求出库电脑,</span><br><span class="line">               WarehouseName                     仓库,</span><br><span class="line">               PopNumber                         出库数量,</span><br><span class="line">               <span class="keyword">sysdate</span>()                         操作日期时间,</span><br><span class="line">               <span class="keyword">if</span>(@isAllOutput = <span class="literal">true</span>, <span class="string">&#x27;是&#x27;</span>, <span class="string">&#x27;否&#x27;</span>) 是否全部出库完,</span><br><span class="line">               <span class="string">&#x27;是&#x27;</span>                               是否成功出库;</span><br><span class="line">    else</span><br><span class="line">        <span class="comment">-- 生成出库记录</span></span><br><span class="line">        <span class="keyword">insert</span> <span class="keyword">into</span> OutputRecords</span><br><span class="line">        <span class="keyword">values</span> (<span class="keyword">concat</span>(<span class="string">&#x27;O&#x27;</span>, RecordsID), ComputerName,</span><br><span class="line">                WarehouseName, PopNumber, <span class="keyword">sysdate</span>(), <span class="literal">null</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">-- 展示本次请求信息</span></span><br><span class="line">        <span class="keyword">select</span> <span class="keyword">concat</span>(<span class="string">&#x27;O&#x27;</span>, RecordsID) 记录编号,</span><br><span class="line">               ComputerName           请求出库电脑,</span><br><span class="line">               WarehouseName          仓库,</span><br><span class="line">               PopNumber              出库数量,</span><br><span class="line">               <span class="keyword">sysdate</span>()              操作日期时间,</span><br><span class="line">               <span class="string">&#x27;否&#x27;</span>                    是否成功出库;</span><br><span class="line">    <span class="keyword">end</span> <span class="keyword">if</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 提交事务</span></span><br><span class="line">    <span class="keyword">commit</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="查询仓库"   >
+          <a href="#查询仓库" class="heading-link"><i class="fas fa-link"></i></a>查询仓库</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询仓库</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> ShowStock()</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">select</span> Stock_ID            编号,</span><br><span class="line">           Computer_Brand      品牌,</span><br><span class="line">           Computer_Name       型号,</span><br><span class="line">           Computer_Unit_Price 单价,</span><br><span class="line">           <span class="built_in">Number</span>              数量,</span><br><span class="line">           Warehouse_Name      仓库地址,</span><br><span class="line">           Supplier_Name       供货商</span><br><span class="line">    <span class="keyword">from</span> Stock,</span><br><span class="line">         Computer,</span><br><span class="line">         Warehouse,</span><br><span class="line">         Supplier</span><br><span class="line">    <span class="keyword">where</span> Stock.Computer_ID = Computer.Computer_ID</span><br><span class="line">      <span class="keyword">and</span> Stock.Warehouse_ID = Warehouse.Warehouse_ID</span><br><span class="line">      <span class="keyword">and</span> Computer.Supplier_ID = Supplier.Supplier_ID;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="sql语句执行"   >
+          <a href="#sql语句执行" class="heading-link"><i class="fas fa-link"></i></a>SQL语句执行</h2>
+      
+
+        <h3 id="登记相关信息"   >
+          <a href="#登记相关信息" class="heading-link"><i class="fas fa-link"></i></a>登记相关信息</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 添加供货商</span></span><br><span class="line"><span class="keyword">call</span> AddSupplier(<span class="string">&#x27;供货商一&#x27;</span>, <span class="string">&#x27;供货商一地址&#x27;</span>, <span class="string">&#x27;02710000001&#x27;</span>);</span><br><span class="line"><span class="keyword">call</span> AddSupplier(<span class="string">&#x27;供货商二&#x27;</span>, <span class="string">&#x27;供货商二地址&#x27;</span>, <span class="string">&#x27;02710000002&#x27;</span>);</span><br><span class="line"><span class="keyword">call</span> AddSupplier(<span class="string">&#x27;供货商三&#x27;</span>, <span class="string">&#x27;供货商三地址&#x27;</span>, <span class="string">&#x27;02710000003&#x27;</span>);</span><br><span class="line"><span class="comment">-- 添加仓库</span></span><br><span class="line"><span class="keyword">call</span> AddWarehouse(<span class="string">&#x27;仓库一&#x27;</span>, <span class="string">&#x27;仓库一地址&#x27;</span>, <span class="string">&#x27;02720000001&#x27;</span>);</span><br><span class="line"><span class="keyword">call</span> AddWarehouse(<span class="string">&#x27;仓库二&#x27;</span>, <span class="string">&#x27;仓库二地址&#x27;</span>, <span class="string">&#x27;02720000002&#x27;</span>);</span><br><span class="line"><span class="comment">-- 添加电脑</span></span><br><span class="line"><span class="keyword">call</span> AddComputer(<span class="string">&#x27;Lenovo-Air14&#x27;</span>, <span class="string">&#x27;Lenovo&#x27;</span>, <span class="number">5999</span>, <span class="string">&#x27;供货商一&#x27;</span>);</span><br><span class="line"><span class="keyword">call</span> AddComputer(<span class="string">&#x27;Lenovo-R7000&#x27;</span>, <span class="string">&#x27;Lenovo&#x27;</span>, <span class="number">6057</span>, <span class="string">&#x27;供货商一&#x27;</span>);</span><br><span class="line"><span class="keyword">call</span> AddComputer(<span class="string">&#x27;Lenovo-Yoga14&#x27;</span>, <span class="string">&#x27;Lenovo&#x27;</span>, <span class="number">6299</span>, <span class="string">&#x27;供货商一&#x27;</span>);</span><br><span class="line"><span class="keyword">call</span> AddComputer(<span class="string">&#x27;Lenovo-Pro14&#x27;</span>, <span class="string">&#x27;Lenovo&#x27;</span>, <span class="number">6299</span>, <span class="string">&#x27;供货商二&#x27;</span>);</span><br><span class="line"><span class="keyword">call</span> AddComputer(<span class="string">&#x27;MiBook-Pro-15.6&#x27;</span>, <span class="string">&#x27;XiaoMi&#x27;</span>, <span class="number">6999</span>, <span class="string">&#x27;供货商二&#x27;</span>);</span><br><span class="line"><span class="keyword">call</span> AddComputer(<span class="string">&#x27;Dell-G3&#x27;</span>, <span class="string">&#x27;Dell&#x27;</span>, <span class="number">6999</span>, <span class="string">&#x27;供货商二&#x27;</span>);</span><br><span class="line"><span class="keyword">call</span> AddComputer(<span class="string">&#x27;Dell-XPS13&#x27;</span>, <span class="string">&#x27;Dell&#x27;</span>, <span class="number">8888</span>, <span class="string">&#x27;供货商二&#x27;</span>);</span><br><span class="line"><span class="keyword">call</span> AddComputer(<span class="string">&#x27;MacBook-Pro-13&#x27;</span>, <span class="string">&#x27;Apple&#x27;</span>, <span class="number">9199</span>, <span class="string">&#x27;供货商三&#x27;</span>);</span><br><span class="line"><span class="keyword">call</span> AddComputer(<span class="string">&#x27;MacBook-Pro-16&#x27;</span>, <span class="string">&#x27;Apple&#x27;</span>, <span class="number">17399</span>, <span class="string">&#x27;供货商三&#x27;</span>);</span><br><span class="line"><span class="keyword">call</span> AddComputer(<span class="string">&#x27;Surface-Pro-7&#x27;</span>, <span class="string">&#x27;Microsoft&#x27;</span>, <span class="number">5788</span>, <span class="string">&#x27;供货商三&#x27;</span>);</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="入库-2"   >
+          <a href="#入库-2" class="heading-link"><i class="fas fa-link"></i></a>入库</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> Push(<span class="string">&#x27;MacBook-Pro-16&#x27;</span>, <span class="string">&#x27;仓库一&#x27;</span>, <span class="number">10</span>);</span><br><span class="line"><span class="keyword">call</span> Push(<span class="string">&#x27;MacBook-Pro-16&#x27;</span>, <span class="string">&#x27;仓库一&#x27;</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">call</span> Push(<span class="string">&#x27;Dell-G3&#x27;</span>, <span class="string">&#x27;仓库一&#x27;</span>, <span class="number">100</span>);</span><br><span class="line"><span class="keyword">call</span> Push(<span class="string">&#x27;Lenovo-Pro14&#x27;</span>, <span class="string">&#x27;仓库二&#x27;</span>, <span class="number">45</span>);</span><br><span class="line"><span class="keyword">call</span> Push(<span class="string">&#x27;Lenovo&#x27;</span>, <span class="string">&#x27;仓库二&#x27;</span>, <span class="number">20</span>); <span class="comment">-- 这个是拒绝入库的示例</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="出库-2"   >
+          <a href="#出库-2" class="heading-link"><i class="fas fa-link"></i></a>出库</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> Pop(<span class="string">&#x27;Lenovo-Pro14&#x27;</span>, <span class="string">&#x27;仓库二&#x27;</span>, <span class="number">30</span>);</span><br><span class="line"><span class="keyword">call</span> Pop(<span class="string">&#x27;MacBook-Pro-16&#x27;</span>, <span class="string">&#x27;仓库一&#x27;</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">call</span> Pop(<span class="string">&#x27;Lenovo-Pro14&#x27;</span>, <span class="string">&#x27;仓库二&#x27;</span>, <span class="number">15</span>);</span><br><span class="line"><span class="keyword">call</span> Pop(<span class="string">&#x27;Lenovo-Pro14&#x27;</span>, <span class="string">&#x27;仓库二&#x27;</span>, <span class="number">1000</span>); <span class="comment">-- 这个是拒绝出库的示例</span></span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="查询结果展示"   >
+          <a href="#查询结果展示" class="heading-link"><i class="fas fa-link"></i></a>查询结果展示</h2>
+      
+
+        <h3 id="查询供货商表"   >
+          <a href="#查询供货商表" class="heading-link"><i class="fas fa-link"></i></a>查询供货商表</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> Supplier_ID      编号,</span><br><span class="line">       Supplier_Name    名称,</span><br><span class="line">       Supplier_Address 地址,</span><br><span class="line">       Supplier_Tel     电话</span><br><span class="line"><span class="keyword">from</span> Supplier;</span><br></pre></td></tr></table></div></figure>
+<p>结果展示：<br />
+<img   src="https://img-blog.csdnimg.cn/20201208215149439.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="查询供货商表" /></p>
+
+        <h3 id="查询仓库表"   >
+          <a href="#查询仓库表" class="heading-link"><i class="fas fa-link"></i></a>查询仓库表</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> Warehouse_ID      编号,</span><br><span class="line">       Warehouse_Name    名称,</span><br><span class="line">       Warehouse_Address 地址,</span><br><span class="line">       Warehouse_Tel     电话</span><br><span class="line"><span class="keyword">from</span> Warehouse;</span><br></pre></td></tr></table></div></figure>
+<p>结果展示：<br />
+<img   src="https://img-blog.csdnimg.cn/20201208215404966.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h3 id="查询电脑表"   >
+          <a href="#查询电脑表" class="heading-link"><i class="fas fa-link"></i></a>查询电脑表</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> Computer_ID         编号,</span><br><span class="line">       Computer_Name       型号,</span><br><span class="line">       Computer_Brand      品牌,</span><br><span class="line">       Computer_Unit_Price 价格,</span><br><span class="line">       Supplier_Name       供货商</span><br><span class="line"><span class="keyword">from</span> Computer,</span><br><span class="line">     Supplier</span><br><span class="line"><span class="keyword">where</span> Supplier.Supplier_ID = Computer.Supplier_ID</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> Computer_ID <span class="keyword">ASC</span>;</span><br></pre></td></tr></table></div></figure>
+<p>结果展示：<br />
+<img   src="https://img-blog.csdnimg.cn/20201208215539132.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h3 id="查询库存"   >
+          <a href="#查询库存" class="heading-link"><i class="fas fa-link"></i></a>查询库存</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> ShowStock;</span><br></pre></td></tr></table></div></figure>
+<p>结果展示：<br />
+<img   src="https://img-blog.csdnimg.cn/20201208215713696.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h3 id="查询入库记录"   >
+          <a href="#查询入库记录" class="heading-link"><i class="fas fa-link"></i></a>查询入库记录</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> InputRecords_ID             序号,</span><br><span class="line">       Computer_Name               请求入库电脑,</span><br><span class="line">       Warehouse_Name              仓库,</span><br><span class="line">       Input_Number                出库数量,</span><br><span class="line">       Input_DateTime              操作时间,</span><br><span class="line">       <span class="keyword">case</span> isNewTypeComputer</span><br><span class="line">           <span class="keyword">when</span> <span class="number">1</span> <span class="keyword">then</span> <span class="string">&#x27;是&#x27;</span></span><br><span class="line">           <span class="keyword">when</span> <span class="number">0</span> <span class="keyword">then</span> <span class="string">&#x27;否&#x27;</span></span><br><span class="line">           <span class="keyword">when</span> <span class="literal">null</span> <span class="keyword">then</span> <span class="literal">null</span></span><br><span class="line">           <span class="keyword">end</span>                     是否为新型号电脑,</span><br><span class="line">       <span class="keyword">if</span>(isSuccess = <span class="number">1</span>, <span class="string">&#x27;是&#x27;</span>, <span class="string">&#x27;否&#x27;</span>) 成功入库否</span><br><span class="line"><span class="keyword">from</span> InputRecords;</span><br></pre></td></tr></table></div></figure>
+<p>结果展示：<br />
+<img   src="https://img-blog.csdnimg.cn/20201208215900680.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h3 id="查询出库记录"   >
+          <a href="#查询出库记录" class="heading-link"><i class="fas fa-link"></i></a>查询出库记录</h3>
+      
+<figure class="highlight sql"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> OutputRecords_ID              序号,</span><br><span class="line">       Computer_Name                 请求出库电脑,</span><br><span class="line">       Warehouse_Name                仓库,</span><br><span class="line">       Output_Number                 出库数量,</span><br><span class="line">       Output_DateTime               操作时间,</span><br><span class="line">       <span class="keyword">case</span> isAllOutput</span><br><span class="line">           <span class="keyword">when</span> <span class="number">1</span> <span class="keyword">then</span> <span class="string">&#x27;是&#x27;</span></span><br><span class="line">           <span class="keyword">when</span> <span class="number">0</span> <span class="keyword">then</span> <span class="string">&#x27;否&#x27;</span></span><br><span class="line">           <span class="keyword">when</span> <span class="literal">null</span> <span class="keyword">then</span> <span class="literal">null</span></span><br><span class="line">           <span class="keyword">end</span>                       是否全部出库完,</span><br><span class="line">       <span class="keyword">if</span>(isSuccess = <span class="number">1</span>, <span class="string">&#x27;是&#x27;</span>, <span class="string">&#x27;否&#x27;</span>) 成功出库否</span><br><span class="line"><span class="keyword">from</span> OutputRecords;</span><br></pre></td></tr></table></div></figure>
+<p>结果展示：<br />
+<img   src="https://img-blog.csdnimg.cn/20201208220038527.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h1 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a>总结</h1>
+      
+<p>通过本次考查报告，从需求分析、概念结构设计、逻辑结构设计到数据库表实施，掌握了设计数据库的有关步骤。通过前期准备，掌握了数据库的理论、E-R图的构建。<br />
+本次使用了MySQL数据库将理论转换为实践，初步掌握了MySQL建库、建表的语句。并编写了存储过程语句，使得数据库操作简便化。在编写SQL语句时，查阅了许多资料，增强了动手能力。<br />
+本次数据的设计仍有不足，如没有考虑到数据库的多用户操作，应当对每个仓库设立若干管理员，只进行本仓库的管理，细分数据库操作，也符合实际情况，这是数据设计的改进方向。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://www.xxdiandeng.cn">点灯君</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://www.xxdiandeng.cn/2020/12/06/database-course-design/">https://www.xxdiandeng.cn/2020/12/06/database-course-design/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://www.xxdiandeng.cn/tags/MySQL/">MySQL</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://www.xxdiandeng.cn/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a></span></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat">分享到： </div></div><div class="post-reward reward"><div class="reward-button">请我喝杯咖啡~</div><div class="reward-qrcode"><span class="reward-qrcode-alipay"><img class="reward-qrcode-alipay__img" src="/images/alipay.png"><div class="reward-qrcode-alipay__text">支付宝打赏</div></span><span class="reward-qrcode-wechat"><img class="reward-qrcode-wechat__img" src="/images/wechatpay.png"><div class="reward-qrcode-wechat__text">微信打赏</div></span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2020/10/09/Algorithm-Competition-1/"><span class="paginator-prev__text">算法竞赛1 ACM与算法入门</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">
+          需求分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">
+          功能设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B6%E5%B1%82%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.1.</span> <span class="toc-text">
+          顶层设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC0%E5%B1%82%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.2.</span> <span class="toc-text">
+          第0层设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A5%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.3.</span> <span class="toc-text">
+          入库设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BA%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.4.</span> <span class="toc-text">
+          出库设计</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">
+          关系模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#e-r%E5%9B%BE"><span class="toc-number">3.1.</span> <span class="toc-text">
+          E-R图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.2.</span> <span class="toc-text">
+          关系模型设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.3.</span> <span class="toc-text">
+          数据库表设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#supplier%E4%BE%9B%E5%BA%94%E5%95%86%E8%A1%A8"><span class="toc-number">3.3.1.</span> <span class="toc-text">
+          Supplier（供应商表）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#computer%E7%94%B5%E8%84%91%E8%A1%A8"><span class="toc-number">3.3.2.</span> <span class="toc-text">
+          Computer（电脑表）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#warehouse%E4%BB%93%E5%BA%93%E8%A1%A8"><span class="toc-number">3.3.3.</span> <span class="toc-text">
+          Warehouse（仓库表）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stock%E5%BA%93%E5%AD%98%E8%A1%A8"><span class="toc-number">3.3.4.</span> <span class="toc-text">
+          Stock（库存表）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#inputrecords%E5%85%A5%E5%BA%93%E8%AE%B0%E5%BD%95%E8%A1%A8"><span class="toc-number">3.3.5.</span> <span class="toc-text">
+          InputRecords（入库记录表）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#outputrecords%E5%87%BA%E5%BA%93%E8%AE%B0%E5%BD%95%E8%A1%A8"><span class="toc-number">3.3.6.</span> <span class="toc-text">
+          OutputRecords（出库记录表）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%A3%E7%A0%81%E5%AE%9E%E8%B7%B5"><span class="toc-number">4.</span> <span class="toc-text">
+          MySQL数据库代码实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E5%BA%93-%E5%BB%BA%E8%A1%A8"><span class="toc-number">4.1.</span> <span class="toc-text">
+          建库、建表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="toc-number">4.2.</span> <span class="toc-text">
+          编写存储过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9B%E8%B4%A7%E5%95%86"><span class="toc-number">4.2.1.</span> <span class="toc-text">
+          添加供货商</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E4%BB%93%E5%BA%93"><span class="toc-number">4.2.2.</span> <span class="toc-text">
+          添加仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%94%B5%E8%84%91"><span class="toc-number">4.2.3.</span> <span class="toc-text">
+          添加电脑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E5%BA%93"><span class="toc-number">4.2.4.</span> <span class="toc-text">
+          入库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BA%E5%BA%93"><span class="toc-number">4.2.5.</span> <span class="toc-text">
+          出库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E4%BB%93%E5%BA%93"><span class="toc-number">4.2.6.</span> <span class="toc-text">
+          查询仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C"><span class="toc-number">4.3.</span> <span class="toc-text">
+          SQL语句执行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E8%AE%B0%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF"><span class="toc-number">4.3.1.</span> <span class="toc-text">
+          登记相关信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E5%BA%93-2"><span class="toc-number">4.3.2.</span> <span class="toc-text">
+          入库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BA%E5%BA%93-2"><span class="toc-number">4.3.3.</span> <span class="toc-text">
+          出库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="toc-number">4.4.</span> <span class="toc-text">
+          查询结果展示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E4%BE%9B%E8%B4%A7%E5%95%86%E8%A1%A8"><span class="toc-number">4.4.1.</span> <span class="toc-text">
+          查询供货商表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E4%BB%93%E5%BA%93%E8%A1%A8"><span class="toc-number">4.4.2.</span> <span class="toc-text">
+          查询仓库表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E7%94%B5%E8%84%91%E8%A1%A8"><span class="toc-number">4.4.3.</span> <span class="toc-text">
+          查询电脑表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%BA%93%E5%AD%98"><span class="toc-number">4.4.4.</span> <span class="toc-text">
+          查询库存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%85%A5%E5%BA%93%E8%AE%B0%E5%BD%95"><span class="toc-number">4.4.5.</span> <span class="toc-text">
+          查询入库记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%87%BA%E5%BA%93%E8%AE%B0%E5%BD%95"><span class="toc-number">4.4.6.</span> <span class="toc-text">
+          查询出库记录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">
+          总结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/avatar.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">点灯君</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/DianDengJun" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/HsingYang" target="_blank" rel="noopener" data-popover="CSDN" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-cuttlefish"></i></span></a><a class="sidebar-ov-social-item" href="mailto:hsingyang@qq.com" target="_blank" rel="noopener" data-popover="邮箱" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=2812838110" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>点灯君</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" rel="noopener" target="_blank">皖ICP备20012253号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.3.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.4.0</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'hkHWPJDojPW5GzfOrjxlVO7j-gzGzoHsz',
+    appKey: 'igMm3PMMUpWh9KYa2Os2zAvs',
+    notify: true,
+    verify: true,
+    placeholder: '大佬请指教(❁´◡`❁)   <支持 MarkDown 语法>',
+    avatar: 'robohash',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.4.0"></script><script src="/js/stun-boot.js?v=2.4.0"></script><script src="/js/scroll.js?v=2.4.0"></script><script src="/js/header.js?v=2.4.0"></script><script src="/js/sidebar.js?v=2.4.0"></script><script type="application/json" src="/search.json"></script></body></html>
