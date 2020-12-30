@@ -6,7 +6,7 @@
   <link href="https://www.xxdiandeng.cn/atom.xml" rel="self"/>
   
   <link href="https://www.xxdiandeng.cn/"/>
-  <updated>2020-12-30T05:52:10.337Z</updated>
+  <updated>2020-12-27T01:16:56.430Z</updated>
   <id>https://www.xxdiandeng.cn/</id>
   
   <author>
@@ -17,11 +17,64 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>《数据库原理及应用》考查报告</title>
+    <link href="https://www.xxdiandeng.cn/2020/12/06/database-course-design/"/>
+    <id>https://www.xxdiandeng.cn/2020/12/06/database-course-design/</id>
+    <published>2020-12-06T06:31:09.000Z</published>
+    <updated>2020-12-27T01:16:56.430Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;需求分析&quot;   &gt;
+          &lt;a href=&quot;#需求分析&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;需求分析&lt;/h1&gt;
+      
+&lt;p&gt;现要求开发电脑仓库管理系统。电脑仓库管理系统主要针对电脑的库存信息管理，对于仓库日常发生的业务，分为两大类，即入库和出库。经过数据库的设计后，用户通过相应的模块，对仓库进行简单的基本操作，即可轻松管理仓库。&lt;br /&gt;
+经过可行性分析和初步的需求调查，确定了系统的功能边界，该系统应能完成下面的功能：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;信息登记：在数据库中添加相关电脑、供货商、仓库的信息；&lt;/li&gt;
+&lt;li&gt;入库：增加电脑库存并生成入库记录；&lt;/li&gt;
+&lt;li&gt;出库：减少电脑库存并生成出库记录。&lt;/li&gt;
+&lt;/ol&gt;</summary>
+    
+    
+    
+    <category term="数据库" scheme="https://www.xxdiandeng.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="课程设计" scheme="https://www.xxdiandeng.cn/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"/>
+    
+    <category term="MySQL" scheme="https://www.xxdiandeng.cn/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《数字逻辑》课程设计报告</title>
+    <link href="https://www.xxdiandeng.cn/2020/12/02/Course-design-of-digital-logic/"/>
+    <id>https://www.xxdiandeng.cn/2020/12/02/Course-design-of-digital-logic/</id>
+    <published>2020-12-02T14:11:11.000Z</published>
+    <updated>2020-12-29T14:26:08.982Z</updated>
+    
+    
+    <summary type="html">本文讲述了两个数字逻辑电路设计： ①数字电子钟，结合 Logisim 软件；②路灯巡回检测器，结合 Verilog 语言，使用 FPGA 开发板</summary>
+    
+    
+    
+    <category term="计算机硬件" scheme="https://www.xxdiandeng.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A1%AC%E4%BB%B6/"/>
+    
+    
+    <category term="数字电路" scheme="https://www.xxdiandeng.cn/tags/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/"/>
+    
+    <category term="FPGA" scheme="https://www.xxdiandeng.cn/tags/FPGA/"/>
+    
+    <category term="课程设计" scheme="https://www.xxdiandeng.cn/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"/>
+    
+  </entry>
+  
+  <entry>
     <title>《数据结构》课程设计报告</title>
-    <link href="https://www.xxdiandeng.cn/2020/12/30/course-design-of-data-structure/"/>
-    <id>https://www.xxdiandeng.cn/2020/12/30/course-design-of-data-structure/</id>
-    <published>2020-12-30T05:45:25.000Z</published>
-    <updated>2020-12-30T05:52:10.337Z</updated>
+    <link href="https://www.xxdiandeng.cn/2020/11/28/course-design-of-data-structure/"/>
+    <id>https://www.xxdiandeng.cn/2020/11/28/course-design-of-data-structure/</id>
+    <published>2020-11-28T05:45:25.000Z</published>
+    <updated>2020-12-30T05:52:55.130Z</updated>
     
     
     <summary type="html">&lt;p&gt;课程设计选题：仓库管理系统&lt;/p&gt;
@@ -50,64 +103,11 @@
     <category term="线性表" scheme="https://www.xxdiandeng.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%BA%BF%E6%80%A7%E8%A1%A8/"/>
     
     
+    <category term="课程设计" scheme="https://www.xxdiandeng.cn/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"/>
+    
     <category term="数据结构" scheme="https://www.xxdiandeng.cn/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
-    <category term="课程设计" scheme="https://www.xxdiandeng.cn/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"/>
-    
     <category term="C++" scheme="https://www.xxdiandeng.cn/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《数据库原理及应用》考查报告</title>
-    <link href="https://www.xxdiandeng.cn/2020/12/06/database-course-design/"/>
-    <id>https://www.xxdiandeng.cn/2020/12/06/database-course-design/</id>
-    <published>2020-12-06T06:31:09.000Z</published>
-    <updated>2020-12-27T01:16:56.430Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;需求分析&quot;   &gt;
-          &lt;a href=&quot;#需求分析&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;需求分析&lt;/h1&gt;
-      
-&lt;p&gt;现要求开发电脑仓库管理系统。电脑仓库管理系统主要针对电脑的库存信息管理，对于仓库日常发生的业务，分为两大类，即入库和出库。经过数据库的设计后，用户通过相应的模块，对仓库进行简单的基本操作，即可轻松管理仓库。&lt;br /&gt;
-经过可行性分析和初步的需求调查，确定了系统的功能边界，该系统应能完成下面的功能：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;信息登记：在数据库中添加相关电脑、供货商、仓库的信息；&lt;/li&gt;
-&lt;li&gt;入库：增加电脑库存并生成入库记录；&lt;/li&gt;
-&lt;li&gt;出库：减少电脑库存并生成出库记录。&lt;/li&gt;
-&lt;/ol&gt;</summary>
-    
-    
-    
-    <category term="数据库" scheme="https://www.xxdiandeng.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-    <category term="MySQL" scheme="https://www.xxdiandeng.cn/tags/MySQL/"/>
-    
-    <category term="课程设计" scheme="https://www.xxdiandeng.cn/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《数字逻辑》课程设计报告</title>
-    <link href="https://www.xxdiandeng.cn/2020/12/02/Course-design-of-digital-logic/"/>
-    <id>https://www.xxdiandeng.cn/2020/12/02/Course-design-of-digital-logic/</id>
-    <published>2020-12-02T14:11:11.000Z</published>
-    <updated>2020-12-29T14:26:08.982Z</updated>
-    
-    
-    <summary type="html">本文讲述了两个数字逻辑电路设计： ①数字电子钟，结合 Logisim 软件；②路灯巡回检测器，结合 Verilog 语言，使用 FPGA 开发板</summary>
-    
-    
-    
-    <category term="计算机硬件" scheme="https://www.xxdiandeng.cn/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A1%AC%E4%BB%B6/"/>
-    
-    
-    <category term="课程设计" scheme="https://www.xxdiandeng.cn/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"/>
-    
-    <category term="FPGA" scheme="https://www.xxdiandeng.cn/tags/FPGA/"/>
-    
-    <category term="数字电路" scheme="https://www.xxdiandeng.cn/tags/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/"/>
     
   </entry>
   
