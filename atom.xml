@@ -6,7 +6,7 @@
   <link href="https://www.xxdiandeng.cn/atom.xml" rel="self"/>
   
   <link href="https://www.xxdiandeng.cn/"/>
-  <updated>2020-12-27T01:16:56.430Z</updated>
+  <updated>2020-12-30T05:52:10.337Z</updated>
   <id>https://www.xxdiandeng.cn/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《数据结构》课程设计报告</title>
+    <link href="https://www.xxdiandeng.cn/2020/12/30/course-design-of-data-structure/"/>
+    <id>https://www.xxdiandeng.cn/2020/12/30/course-design-of-data-structure/</id>
+    <published>2020-12-30T05:45:25.000Z</published>
+    <updated>2020-12-30T05:52:10.337Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;课程设计选题：仓库管理系统&lt;/p&gt;
+
+        &lt;h1 id=&quot;题目与要求&quot;   &gt;
+          &lt;a href=&quot;#题目与要求&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;题目与要求&lt;/h1&gt;
+      
+
+        &lt;h2 id=&quot;问题描述&quot;   &gt;
+          &lt;a href=&quot;#问题描述&quot; class=&quot;heading-link&quot;&gt;&lt;i class=&quot;fas fa-link&quot;&gt;&lt;/i&gt;&lt;/a&gt;问题描述&lt;/h2&gt;
+      
+&lt;p&gt;某电子公司仓库中有若干批次的同一种电脑，按价格、数量来存储。&lt;br /&gt;
+要求实现功能:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;初始化 n 批不同价格电脑入库；&lt;/li&gt;
+&lt;li&gt;出库：销售m台价格为p的电脑；&lt;/li&gt;
+&lt;li&gt;入库：新到m台价格为p的电脑；&lt;/li&gt;
+&lt;li&gt;盘点：电脑的总台数，总金额，最高价，最低价，平均价格。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;注：每个数据元素含有价格与数量；同一价格的电脑存储为一个数据元素。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="数据结构与算法" scheme="https://www.xxdiandeng.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="线性表" scheme="https://www.xxdiandeng.cn/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%BA%BF%E6%80%A7%E8%A1%A8/"/>
+    
+    
+    <category term="数据结构" scheme="https://www.xxdiandeng.cn/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    <category term="课程设计" scheme="https://www.xxdiandeng.cn/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/"/>
+    
+    <category term="C++" scheme="https://www.xxdiandeng.cn/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>《数据库原理及应用》考查报告</title>

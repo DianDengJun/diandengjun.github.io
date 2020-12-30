@@ -1,0 +1,687 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) {
+  window.location.href = 'https://support.dmeng.net/upgrade-your-browser.html';
+}</script><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.4.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.4.0" type="image/png" sizes="32x32"><meta name="description" content="课程设计选题：仓库管理系统                     题目与要求                            问题描述        某电子公司仓库中有若干批次的同一种电脑，按价格、数量来存储。 要求实现功能:  初始化 n 批不同价格电脑入库； 出库：销售m台价格为p的电脑； 入库：新到m台价格为p的电脑； 盘点：电脑的总台数，总金额，最高价，最低价，平均价格。  注：每">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《数据结构》课程设计报告">
+<meta property="og:url" content="https://www.xxdiandeng.cn/2020/12/30/course-design-of-data-structure/index.html">
+<meta property="og:site_name" content="星星点灯的技术栈">
+<meta property="og:description" content="课程设计选题：仓库管理系统                     题目与要求                            问题描述        某电子公司仓库中有若干批次的同一种电脑，按价格、数量来存储。 要求实现功能:  初始化 n 批不同价格电脑入库； 出库：销售m台价格为p的电脑； 入库：新到m台价格为p的电脑； 盘点：电脑的总台数，总金额，最高价，最低价，平均价格。  注：每">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230123554943.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230123728727.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230123736468.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230123845921.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230123857810.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230130624751.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230130657360.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230130710167.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230130738804.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230130831651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230130908589.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230130855122.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230130940342.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230131001590.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230131032662.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230131107402.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230131131645.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201230131144395.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-12-30T05:45:25.000Z">
+<meta property="article:modified_time" content="2020-12-30T05:52:10.337Z">
+<meta property="article:author" content="点灯君">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="课程设计">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201230123554943.png"><title>《数据结构》课程设计报告 | 星星点灯的技术栈</title><link ref="canonical" href="https://www.xxdiandeng.cn/2020/12/30/course-design-of-data-structure/"><link rel="alternate" href="/atom.xml" type="application/atom+xml"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"80px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: true,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fab fa-pagelines"></i></span><span class="header-nav-menu-item__text">文章</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/archives/"><span class="header-nav-submenu-item__icon"><i class="fas fa-history"></i></span><span class="header-nav-submenu-item__text">归档</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/"><span class="header-nav-submenu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-submenu-item__text">分类</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/tags/"><span class="header-nav-submenu-item__icon"><i class="fas fa-sort-alpha-down"></i></span><span class="header-nav-submenu-item__text">标签</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="far fa-smile-wink"></i></span><span class="header-nav-menu-item__text">关于</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/about/"><span class="header-nav-submenu-item__icon"><i class="far fa-user"></i></span><span class="header-nav-submenu-item__text">作者</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" target="_blank" rel="noopener" href="https://blog.csdn.net/HsingYang"><span class="header-nav-submenu-item__icon"><i class="fab fa-cuttlefish"></i></span><span class="header-nav-submenu-item__text">CSDN</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">《数据结构》课程设计报告</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-12-30</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-12-30</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">5.9k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">42分</span></span><span class="post-meta-item post-meta-item--visitors leancloud_visitors" id="/2020/12/30/course-design-of-data-structure/" data-flag-title="《数据结构》课程设计报告"><span class="post-meta-item__icon"><i class="fas fa-eye"></i></span><span class="post-meta-item__info">阅读次数</span><span class="post-meta-item__value leancloud-visitors-count"></span></span></div></header><div class="post-body"><p>课程设计选题：仓库管理系统</p>
+
+        <h1 id="题目与要求"   >
+          <a href="#题目与要求" class="heading-link"><i class="fas fa-link"></i></a>题目与要求</h1>
+      
+
+        <h2 id="问题描述"   >
+          <a href="#问题描述" class="heading-link"><i class="fas fa-link"></i></a>问题描述</h2>
+      
+<p>某电子公司仓库中有若干批次的同一种电脑，按价格、数量来存储。<br />
+要求实现功能:</p>
+<ol>
+<li>初始化 n 批不同价格电脑入库；</li>
+<li>出库：销售m台价格为p的电脑；</li>
+<li>入库：新到m台价格为p的电脑；</li>
+<li>盘点：电脑的总台数，总金额，最高价，最低价，平均价格。</li>
+</ol>
+<p>注：每个数据元素含有价格与数量；同一价格的电脑存储为一个数据元素。</p>
+<a id="more"></a>
+
+        <h2 id="系统涉及知识点"   >
+          <a href="#系统涉及知识点" class="heading-link"><i class="fas fa-link"></i></a>系统涉及知识点</h2>
+      
+<p>仓库管理系统可以使用顺序表、有序表、单链表、有序循环链表等实现，本设计采用有序表实现。<br />
+所谓有序表，是指这样的线性表，其中所有的元素以递增或递减方式有序排列。<br />
+首先要指出的是，有序表是基于顺序表而延伸出来的一种数据结构，其共同点是用一组地址连续的存储单元依次存储线性表的数据元素。<br />
+其次，是有序表的独特之处，它其中的数据元素按照一定的顺序有序排列。<br />
+仓库管理系统适合采用有序表，原因是可以按照商品的价格或数量进行有序排列，方便用户比对价格、数量。</p>
+
+        <h2 id="功能要求"   >
+          <a href="#功能要求" class="heading-link"><i class="fas fa-link"></i></a>功能要求</h2>
+      
+<ol>
+<li>
+<p>初始化仓库：初始化n批不同型号的电脑入库；</p>
+</li>
+<li>
+<p>入库：新到m台价格为p的电脑；</p>
+</li>
+<li>
+<p>出库：销售m台价格为p的电脑；</p>
+</li>
+<li>
+<p>盘点仓库：列出仓库的关键数据：电脑的总台数、总金额、最高价、平均价格等；</p>
+<p>按照有序表的特点以及所使用的编程语言（C++）的特性，本程序还提供了以下功能：</p>
+</li>
+<li>
+<p>查询某一型号的电脑的价格、数量；</p>
+</li>
+<li>
+<p>重新对仓库数据按照一定规则排序；</p>
+</li>
+<li>
+<p>导出仓库数据到外部文件；</p>
+</li>
+<li>
+<p>从外部文件导入数据，以初始化仓库。</p>
+</li>
+</ol>
+
+        <h1 id="功能设计"   >
+          <a href="#功能设计" class="heading-link"><i class="fas fa-link"></i></a>功能设计</h1>
+      
+
+        <h2 id="数据结构定义"   >
+          <a href="#数据结构定义" class="heading-link"><i class="fas fa-link"></i></a>数据结构定义</h2>
+      
+<p>一、基本数据元素：电脑</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">computer</span> &#123;</span></span><br><span class="line">    <span class="keyword">char</span> type[<span class="number">50</span>];  <span class="comment">// 型号</span></span><br><span class="line">    <span class="keyword">double</span> price;   <span class="comment">// 价格</span></span><br><span class="line">    <span class="keyword">int</span> number;     <span class="comment">// 数量</span></span><br><span class="line">&#125; Computer, ElemType;</span><br></pre></td></tr></table></div></figure>
+<p>基本数据元素电脑（<code>Computer</code>/<code>ElemType</code>）采用结构体表示，用于存储某一类电脑的信息：型号（<code>type[50]</code>）、价格（<code>price</code>）、库存数量（<code>number</code>）。<br />
+二、数据结构：有序表</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    ElemType *elem;     <span class="comment">// 基地址</span></span><br><span class="line">    <span class="keyword">int</span> length;         <span class="comment">// 当前有效数据的个数</span></span><br><span class="line">    <span class="keyword">int</span> listsize;       <span class="comment">// 当前存储容量(单位是sizeof(ElemType))</span></span><br><span class="line">    <span class="keyword">bool</span> isInit&#123;<span class="literal">false</span>&#125;; <span class="comment">// 顺序表是否已经初始化</span></span><br><span class="line">    <span class="keyword">int</span> sortWay&#123;<span class="number">1</span>&#125;;     <span class="comment">// 顺序表的排序方式</span></span><br><span class="line">&#125; SqList;</span><br></pre></td></tr></table></div></figure>
+<p>数据结构有序表（<code>SqList</code>）由以下几个部分组成：</p>
+<ol>
+<li>数组指针<code>elem</code>指示有序表的基地址；</li>
+<li><code>length</code>指示有序表的当前有效数据个数（长度）；</li>
+<li><code>listsize</code>指示有序表当前分配的存储空间大小，一旦因插入数据元素（<code>Computer</code>）而空间不足时，可进行再分配；</li>
+<li><code>isInit</code>指示有序表是否已经初始化（即是否有一个确定的基地址）；</li>
+<li><code>sortWay</code>指示有序表的排序方式，按照值的不同，对应的有序表排序方式也不同。本程序具体设计了以下四种排序方式：1-按照价格升序、2-按照价格降序、3-按照数量升序、4-按照数量降序。</li>
+</ol>
+<p>整体的数据结构如下图所示：<br />
+<img src="https://img-blog.csdnimg.cn/20201230123554943.png" alt="" /></p>
+
+        <h2 id="模块图"   >
+          <a href="#模块图" class="heading-link"><i class="fas fa-link"></i></a>模块图</h2>
+      
+
+        <h3 id="入库"   >
+          <a href="#入库" class="heading-link"><i class="fas fa-link"></i></a>入库</h3>
+      
+<p>入库有两种方式，一是在仓库中已有和待入库电脑型号相同的数据，此时，检查给出的价格是否与仓库中一致，若一致，同意用户的入库操作。然后只需更改仓库中此种电脑型号的数量。<br />
+示意图如下：<br />
+<img   src="https://img-blog.csdnimg.cn/20201230123728727.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+<p>第二种方式，入库一种新型号的电脑，则应该按照有序表的排序方式（<code>sortWay</code>）在正确位置插入元素。<br />
+示意图如下：<br />
+<img src="https://img-blog.csdnimg.cn/20201230123736468.png" alt="" /></p>
+
+        <h3 id="出库"   >
+          <a href="#出库" class="heading-link"><i class="fas fa-link"></i></a>出库</h3>
+      
+<p>可以出库的前提是，在仓库中有待出库型号的电脑且仓库中的库存数量大于等于待出库数量。<br />
+第一类情况，待出库电脑的数量在库存中充足（即库存数量大于待出库数量），此时只需更改相应的数据元素。<br />
+示意图如下：<br />
+<img   src="https://img-blog.csdnimg.cn/20201230123845921.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /><br />
+第二类情况，此种型号的电脑恰好全部出库完，则需要删除相应的数据元素。<br />
+示意图如下：<br />
+<img   src="https://img-blog.csdnimg.cn/20201230123857810.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h1 id="功能代码"   >
+          <a href="#功能代码" class="heading-link"><i class="fas fa-link"></i></a>功能代码</h1>
+      
+
+        <h2 id="初始化动态顺序表"   >
+          <a href="#初始化动态顺序表" class="heading-link"><i class="fas fa-link"></i></a>初始化动态顺序表</h2>
+      
+<p>有序表的数据结构是基于顺序表实现的，所以在进行一切操作前，应当初始化一个空的动态顺序表。<br />
+代码如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">InitSqList</span><span class="params">(SqList &amp;L, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> listsize&#123;((n / <span class="number">10</span>) + <span class="number">1</span>) * <span class="number">10</span>&#125;; <span class="comment">// 确定顺序表初始内存占用空间</span></span><br><span class="line">    L.elem = <span class="keyword">new</span> ElemType[listsize];    <span class="comment">// 分配基地址、顺序表内存</span></span><br><span class="line">    <span class="keyword">if</span> (!L.elem)    <span class="comment">// 内存不足</span></span><br><span class="line">        <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">    L.length = <span class="number">0</span>;   <span class="comment">// 此时顺序表还没有元素，L.length为0</span></span><br><span class="line">    L.listsize = listsize;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>有序表初始分配的内存空间（<code>listsize</code>）并没有简单采用一个常数大小（如<code>10</code>个<code>ElemType</code>字节），这样不用限制用户输入的电脑类型最大个数，对用户友好。具体是通过给定的<code>n</code>，计算表达式<code>((n/10)+1)*10</code>，使得初始分配的内存为<code>10</code>的整数倍大小的<code>ElemType</code>字节，比如<code>n</code>为<code>12</code>，表达式<code>((n/10)+1)*10</code>则为<code>20</code>。<br />
+需要注意的是，初始化动态顺序表时，还暂无数据元素，<code>L.length</code>应为<code>0</code>。</p>
+
+        <h2 id="创建初始化仓库"   >
+          <a href="#创建初始化仓库" class="heading-link"><i class="fas fa-link"></i></a>创建（初始化）仓库</h2>
+      
+<p>创建仓库的前提是，已经初始化过一个空的动态顺序表，这个检测可以在主函数中完成。<br />
+创建有序表式的仓库步骤：</p>
+<ol>
+<li>输入n个数据元素，存储到顺序表中；</li>
+<li>对已创建的顺序表按照有序表的排序方式（<code>L.sortWay</code>）进行快速排序。</li>
+<li>更新有序表的相应参数（<code>length</code>、<code>isInit</code>、<code>sortWay</code>）<br />
+代码如下：</li>
+</ol>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CreateWarehouse</span><span class="params">(SqList &amp;L, <span class="keyword">int</span> n, <span class="keyword">int</span> sort_way)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;请输入这&quot;</span> &lt;&lt; n &lt;&lt; <span class="string">&quot;种电脑各自的型号、单价、总数:(以空格分隔)&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// 输入n个数据元素</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; L.elem[i].type &gt;&gt; L.elem[i].price &gt;&gt; L.elem[i].number;</span><br><span class="line">    <span class="comment">// 按照sort_way对刚创建的顺序表排序</span></span><br><span class="line">    <span class="keyword">switch</span> (sort_way) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">            <span class="comment">// 按价格升序</span></span><br><span class="line">            sort(L.elem, L.elem + n, cmp1);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">            <span class="comment">// 按价格降序</span></span><br><span class="line">            sort(L.elem, L.elem + n, cmp2);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">            <span class="comment">// 按数量升序</span></span><br><span class="line">            sort(L.elem, L.elem + n, cmp3);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">            <span class="comment">// 按数量降序</span></span><br><span class="line">            sort(L.elem, L.elem + n, cmp4);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 更新L的参数</span></span><br><span class="line">    L.sortWay = sort_way;</span><br><span class="line">    L.length = n;</span><br><span class="line">    L.isInit = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>如果使用文件流创建仓库，那么代码略有不同，这部分属于C++的知识。<br />
+不同代码（输入n数据元素）如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s;</span><br><span class="line"><span class="comment">// 从文件流输入n个数据元素</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    ImportFile &gt;&gt; L.elem[i].type &gt;&gt; L.elem[i].price &gt;&gt; L.elem[i].number;</span><br><span class="line">    getline(ImportFile, s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="显示仓库"   >
+          <a href="#显示仓库" class="heading-link"><i class="fas fa-link"></i></a>显示仓库</h2>
+      
+<p>顾名思义，就是将仓库的数据打印出来。<br />
+代码如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 显示仓库</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintWarehouse</span><span class="params">(SqList L)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!L.length)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;当前仓库没有数据!&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;当前仓库数据如下:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">string</span> sort_way;</span><br><span class="line">        <span class="keyword">switch</span> (L.sortWay) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                sort_way = <span class="string">&quot;(按照价格升序)&quot;</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                sort_way = <span class="string">&quot;(按照价格降序)&quot;</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                sort_way = <span class="string">&quot;(按照数量升序)&quot;</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">                sort_way = <span class="string">&quot;(按照数量降序)&quot;</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; sort_way &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;-------------------------------------------------------&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; setLeft</span><br><span class="line">             &lt;&lt; setw(<span class="number">5</span>) &lt;&lt; <span class="string">&quot;序号&quot;</span></span><br><span class="line">             &lt;&lt; setw(<span class="number">20</span>) &lt;&lt; <span class="string">&quot;型号&quot;</span></span><br><span class="line">             &lt;&lt; setw(<span class="number">15</span>) &lt;&lt; <span class="string">&quot;单价&quot;</span></span><br><span class="line">             &lt;&lt; setw(<span class="number">15</span>) &lt;&lt; <span class="string">&quot;数量&quot;</span></span><br><span class="line">             &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;-------------------------------------------------------&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; L.length; i++)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; setLeft</span><br><span class="line">                 &lt;&lt; setw(<span class="number">5</span>) &lt;&lt; i + <span class="number">1</span></span><br><span class="line">                 &lt;&lt; setw(<span class="number">20</span>) &lt;&lt; L.elem[i].type</span><br><span class="line">                 &lt;&lt; setw(<span class="number">15</span>) &lt;&lt; L.elem[i].price</span><br><span class="line">                 &lt;&lt; setw(<span class="number">15</span>) &lt;&lt; L.elem[i].number</span><br><span class="line">                 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;-------------------------------------------------------&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="入库-2"   >
+          <a href="#入库-2" class="heading-link"><i class="fas fa-link"></i></a>入库</h2>
+      
+<p>入库要考虑两种情况，第一种情况，仓库中已经有和待入库电脑相同型号的数据元素，那么需要先比较价格是否一致（不一致拒绝用户的入库操作），然后更改仓库中此种电脑数据元素的数量值。<br />
+第二种情况入库一种新型号的电脑，那么则要插入一个新的数据元素（<code>Computer</code>）到仓库中，并且在插入之前还要检查有序表的内存空间（<code>listsize</code>）是否充足，如果不足，则需要再分配有序表的内存大小，即为顺序表增加一个大小为存储<code>LISTINCREMENT</code>个数据元素的空间。然后，根据有序表的排序方式（<code>L.sortWay</code>），找到可以插入元素的地址。插入时，先将该地址及以后的地址全部后移一位，接着将当前地址写入要入库的数据元素。<br />
+代码如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Enter</span><span class="params">(SqList &amp;L, <span class="keyword">const</span> Computer &amp;c)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 寻找仓库中是否已经有和c.type同类型的电脑</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; L.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">strcmp</span>(c.type, L.elem[i].type) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (c.price == L.elem[i].price) &#123;   <span class="comment">// 检查价格价格是否与c.price相等</span></span><br><span class="line">                L.elem[i].number += c.number;</span><br><span class="line">                <span class="keyword">return</span> OK;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;提示:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                showInfo(L.elem[i]);</span><br><span class="line">                <span class="keyword">return</span> ERROR;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 入库一个新类型的电脑</span></span><br><span class="line">    <span class="keyword">if</span> (L.length &gt;= L.listsize) &#123;   <span class="comment">// 顺序表占用空间不足</span></span><br><span class="line">        <span class="comment">// 申请新的基地址、内存空间</span></span><br><span class="line">        <span class="keyword">auto</span> *newbase = (ElemType *) <span class="built_in">realloc</span>(L.elem, (L.listsize + LISTINCREMENT) * <span class="keyword">sizeof</span>(ElemType));</span><br><span class="line">        <span class="keyword">if</span> (!newbase)</span><br><span class="line">            <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">        L.elem = newbase;   <span class="comment">// L的基地址更改为newbase</span></span><br><span class="line">        L.listsize += LISTINCREMENT;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 按照L.sort_way对插入到顺序表中</span></span><br><span class="line">    <span class="keyword">int</span> item&#123;L.length&#125;; <span class="comment">// 确定要插入的位序</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; L.length; i++) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (L.sortWay) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>: &#123;</span><br><span class="line">                <span class="keyword">if</span> (c.price &lt; L.elem[i].price) &#123;</span><br><span class="line">                    item = i;</span><br><span class="line">                    <span class="keyword">goto</span> change_sq;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>: &#123;</span><br><span class="line">                <span class="keyword">if</span> (c.price &gt; L.elem[i].price) &#123;</span><br><span class="line">                    item = i;</span><br><span class="line">                    <span class="keyword">goto</span> change_sq;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>: &#123;</span><br><span class="line">                <span class="keyword">if</span> (c.number &lt; L.elem[i].number) &#123;</span><br><span class="line">                    item = i;</span><br><span class="line">                    <span class="keyword">goto</span> change_sq;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">4</span>: &#123;</span><br><span class="line">                <span class="keyword">if</span> (c.number &gt; L.elem[i].number) &#123;</span><br><span class="line">                    item = i;</span><br><span class="line">                    <span class="keyword">goto</span> change_sq;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    change_sq:</span><br><span class="line">    ElemType *q = &amp;L.elem[item];</span><br><span class="line">    <span class="comment">// 将q及q以后的元素全部后移一位</span></span><br><span class="line">    <span class="keyword">for</span> (ElemType *p = L.elem + L.length - <span class="number">1</span>; p &gt;= q; p--)</span><br><span class="line">        *(p + <span class="number">1</span>) = *p;</span><br><span class="line">    <span class="comment">// 将新元素赋给q</span></span><br><span class="line">    *q = c;</span><br><span class="line">    L.length++;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>要注意的是如果是入库一种新型号的电脑，完成操作后，应当将有序表的长度加1（<code>L.length++</code>）。</p>
+
+        <h2 id="出库-2"   >
+          <a href="#出库-2" class="heading-link"><i class="fas fa-link"></i></a>出库</h2>
+      
+<p>出库要考虑以下几种情况：</p>
+<ol>
+<li>仓库中是否有待出库电脑的型号的相应数据元素，如果没有找到相应的电脑型号，则应当拒绝用户的出库操作；</li>
+<li>仓库中现有库存数量是否充足，满足出库要求，如果库存数量小于待出库数量，则应当拒绝用户的出库操作；</li>
+<li>如果库存数量大于待出库数量，那么只需更改相应数据元素的数量值；</li>
+<li>如果库存数量恰好等于待出库数量，那么此时这种型号的电脑应从仓库中“剔除”。具体操作是，找到该数据元素的地址，将该地址及以后的地址全部前移一位。最后，更新L.length参数。</li>
+</ol>
+<p>代码如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Out</span><span class="params">(SqList &amp;L, <span class="keyword">const</span> <span class="keyword">char</span> *type, <span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 确定要出库元素的位序</span></span><br><span class="line">    <span class="keyword">int</span> item&#123;L.length + <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; L.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">strcmp</span>(type, L.elem[i].type) == <span class="number">0</span>) &#123;</span><br><span class="line">            item = i;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 没有找到要出库元素的位序，说明在仓库中没有元素，返回错误</span></span><br><span class="line">    <span class="keyword">if</span> (item &gt; L.length)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 确定要出库元素现有库存的数量是否可以出库</span></span><br><span class="line">    <span class="keyword">if</span> (num &lt; L.elem[item].number) &#123;</span><br><span class="line">        <span class="comment">// 正常出库</span></span><br><span class="line">        L.elem[item].number -= num;</span><br><span class="line">        <span class="keyword">return</span> OK;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num == L.elem[item].number) &#123;</span><br><span class="line">        <span class="comment">// 全部出库</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;提示:&quot;</span> &lt;&lt; <span class="built_in">endl</span></span><br><span class="line">             &lt;&lt; L.elem[item].type &lt;&lt; <span class="string">&quot;型号的电脑已全部出库!&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将p及p以后的元素全部后移一位</span></span><br><span class="line">        <span class="keyword">for</span> (ElemType *p = &amp;L.elem[item + <span class="number">1</span>]; p &lt;= &amp;L.elem[L.length - <span class="number">1</span>]; p++) &#123;</span><br><span class="line">            *(p - <span class="number">1</span>) = *p;</span><br><span class="line">        &#125;</span><br><span class="line">        L.length--;</span><br><span class="line">        <span class="keyword">return</span> OK;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 库存不足</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;提示:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        showInfo(L.elem[item]);</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="查询电脑数据"   >
+          <a href="#查询电脑数据" class="heading-link"><i class="fas fa-link"></i></a>查询电脑数据</h2>
+      
+<p>查询电脑数据，只需从基地址开始遍历，直到找到数据元素的型号和待查询的型号相同，那么返回电脑信息。<br />
+可以定义一个<code>item</code>参数，初始值为<code>L.length + 1</code>，如果找到数据元素，则将其更新为数据元素的逻辑位序。如果遍历结束，item都未更新，说明未找到。因为数据元素的最大逻辑位序是有序表的表长（<code>L.length</code>），所以判断是否找到数据元素的条件是：<code>item &gt; L.length</code>。<br />
+代码如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getInfo</span><span class="params">(SqList L, <span class="keyword">const</span> <span class="keyword">char</span> *type)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 确定要查找的电脑的元素位序</span></span><br><span class="line">    <span class="keyword">int</span> item&#123;L.length + <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; L.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">strcmp</span>(type, L.elem[i].type) == <span class="number">0</span>) &#123;</span><br><span class="line">            item = i;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (item &gt; L.length)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;没有找到&quot;</span> &lt;&lt; type &lt;&lt; <span class="string">&quot;型号的电脑&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;信息如下:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        showInfo(L.elem[item]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="盘点仓库"   >
+          <a href="#盘点仓库" class="heading-link"><i class="fas fa-link"></i></a>盘点仓库</h2>
+      
+<p>从基地址开始遍历，求得关键数据：总台数（<code>numSum</code>）、总金额（<code>priceSum</code>）、最高价（<code>priceMax</code>）、最低价（<code>priceMin</code>）、平均价（<code>priceAverage</code>）。<br />
+代码如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Check</span><span class="params">(SqList L)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> numSum&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">double</span> priceSum&#123;<span class="number">0.0</span>&#125;, priceMax&#123;L.elem[<span class="number">0</span>].price&#125;, priceMin&#123;L.elem[<span class="number">0</span>].price&#125;, priceAverage&#123;<span class="number">0.0</span>&#125;;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">char</span> *&gt; priceMaxComputer;    <span class="comment">// 存储价格最高的电脑的类型名</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">char</span> *&gt; priceMinComputer;    <span class="comment">// 存储价格最低的电脑的类型名</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!L.length) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;当前仓库没有数据!&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 求总数、总金额、最高价、最低价</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; L.length; i++) &#123;</span><br><span class="line">            numSum += L.elem[i].number;</span><br><span class="line">            priceSum += L.elem[i].price * L.elem[i].number;</span><br><span class="line">            priceMax = max(priceMax, L.elem[i].price);</span><br><span class="line">            priceMin = min(priceMin, L.elem[i].price);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 记录价格最高、最低的电脑类型名</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; L.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (L.elem[i].price == priceMax)</span><br><span class="line">                priceMaxComputer.push_back(L.elem[i].type);</span><br><span class="line">            <span class="keyword">if</span> (L.elem[i].price == priceMin)</span><br><span class="line">                priceMinComputer.push_back(L.elem[i].type);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 求平均价</span></span><br><span class="line">        priceAverage = priceSum / numSum;</span><br><span class="line">        <span class="comment">// 输出信息</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;盘点数据如下&quot;</span> &lt;&lt; <span class="built_in">endl</span></span><br><span class="line">             &lt;&lt; <span class="string">&quot;电脑的总台数: &quot;</span> &lt;&lt; numSum &lt;&lt; <span class="built_in">endl</span></span><br><span class="line">             &lt;&lt; <span class="string">&quot;电脑的总金额: &quot;</span> &lt;&lt; priceSum &lt;&lt; <span class="built_in">endl</span></span><br><span class="line">             &lt;&lt; <span class="string">&quot;电脑的最高价: &quot;</span> &lt;&lt; priceMax &lt;&lt; <span class="built_in">endl</span></span><br><span class="line">             &lt;&lt; <span class="string">&quot;           + 对应的型号是: &quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;c:priceMaxComputer)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; c &lt;&lt; <span class="string">&quot;\t&quot;</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;电脑的最低价: &quot;</span> &lt;&lt; priceMin &lt;&lt; <span class="built_in">endl</span></span><br><span class="line">             &lt;&lt; <span class="string">&quot;           + 对应的型号是: &quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;c:priceMinComputer)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; c &lt;&lt; <span class="string">&quot;\t&quot;</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;电脑的平均价格: &quot;</span> &lt;&lt; priceAverage &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>这里定义了两个<code>char*</code>向量（<code>priceMaxComputer</code>、<code>priceMinComputer</code>），用以存储价格最高的电脑的类型名、最低的电脑的类型名，因为可能若干种型号的电脑都是最高价或最低价，所以使用C++的向量数据结构比较合适。这样，可以显示出最高价、最低价相应的电脑类型名，对用户友好。</p>
+
+        <h2 id="重新对仓库排序"   >
+          <a href="#重新对仓库排序" class="heading-link"><i class="fas fa-link"></i></a>重新对仓库排序</h2>
+      
+<p>只需按照给定的排序方式，对仓库进行快速排序，然后更改<code>L.sortWay</code>参数为相应值。<br />
+代码如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;请输入要重新对仓库排序的主要方式&quot;</span> &lt;&lt; <span class="built_in">endl</span></span><br><span class="line">     &lt;&lt; <span class="string">&quot;1. 按价格升序 2. 按价格降序&quot;</span> &lt;&lt; <span class="built_in">endl</span></span><br><span class="line">     &lt;&lt; <span class="string">&quot;3. 按数量升序 4. 按数量降序&quot;</span> &lt;&lt; <span class="built_in">endl</span></span><br><span class="line">     &lt;&lt; <span class="string">&quot;选择1-4:&quot;</span>;</span><br><span class="line"><span class="keyword">auto</span> select = input_number(<span class="number">1</span>, <span class="number">4</span>);</span><br><span class="line"><span class="keyword">switch</span> (select) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        sort(L.elem, L.elem + L.length, cmp1);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        sort(L.elem, L.elem + L.length, cmp2);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        sort(L.elem, L.elem + L.length, cmp3);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        sort(L.elem, L.elem + L.length, cmp4);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line">L.sortWay = select;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;重新排序成功!&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></div></figure>
+<p>其中，4种排序方式的代码如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// computer排序方式：按价格升序</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp1</span><span class="params">(<span class="keyword">const</span> Computer &amp;a, <span class="keyword">const</span> Computer &amp;b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.price &lt; b.price;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// computer排序方式：按价格降序</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp2</span><span class="params">(<span class="keyword">const</span> Computer &amp;a, <span class="keyword">const</span> Computer &amp;b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.price &gt; b.price;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// computer排序方式：按数量升序</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp3</span><span class="params">(<span class="keyword">const</span> Computer &amp;a, <span class="keyword">const</span> Computer &amp;b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.number &lt; b.number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// computer排序方式：按数量降序</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp4</span><span class="params">(<span class="keyword">const</span> Computer &amp;a, <span class="keyword">const</span> Computer &amp;b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.number &gt; b.number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h2 id="导出仓库数据到文件"   >
+          <a href="#导出仓库数据到文件" class="heading-link"><i class="fas fa-link"></i></a>导出仓库数据到文件</h2>
+      
+<p>原理和显示仓库大同小异，只是多了文件流的操作。<br />
+代码如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">(SqList L, <span class="keyword">const</span> <span class="built_in">string</span> &amp;filename)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 定义输出文件流filename.txt</span></span><br><span class="line">    <span class="function">ofstream <span class="title">OutFile</span><span class="params">(filename + <span class="string">&quot;.txt&quot;</span>)</span></span>;</span><br><span class="line">    <span class="comment">// 输出文件头，用于下次输入时识别文件</span></span><br><span class="line">    OutFile &lt;&lt; <span class="string">&quot;Computer Warehouse Data&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">if</span> (!L.length)</span><br><span class="line">        OutFile &lt;&lt; <span class="string">&quot;no data&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        OutFile &lt;&lt; <span class="string">&quot;The information is as follows:&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">switch</span> (L.sortWay) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                OutFile &lt;&lt; <span class="string">&quot;Sort Way: 1 (Ascending by price)&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                OutFile &lt;&lt; <span class="string">&quot;Sort Way: 2 (Descending by price)&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                OutFile &lt;&lt; <span class="string">&quot;Sort Way: 3 (Ascending by number)&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">                OutFile &lt;&lt; <span class="string">&quot;Sort Way: 4 (Descending by number)&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        OutFile &lt;&lt; <span class="string">&quot;Total Type: &quot;</span> &lt;&lt; L.length &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 输出数据信息</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; L.length; i++)</span><br><span class="line">            OutFile &lt;&lt; L.elem[i].type &lt;&lt; <span class="string">&quot; &quot;</span></span><br><span class="line">                    &lt;&lt; L.elem[i].price &lt;&lt; <span class="string">&quot; &quot;</span></span><br><span class="line">                    &lt;&lt; L.elem[i].number</span><br><span class="line">                    &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="comment">// 关闭文件</span></span><br><span class="line">        OutFile.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+        <h1 id="调试与测试"   >
+          <a href="#调试与测试" class="heading-link"><i class="fas fa-link"></i></a>调试与测试</h1>
+      
+<p><strong>注意：本设计使用的编译器是G++ 8.1.0，在Windows平台上编译、运行成功。<br />
+编译命令为：“g++ main.cpp sqlist.cpp -o main”（不含引号）。</strong></p>
+
+        <h2 id="调试分析"   >
+          <a href="#调试分析" class="heading-link"><i class="fas fa-link"></i></a>调试分析</h2>
+      
+<p>一、创建仓库<br />
+为方便用户操作，本程序可以导出仓库数据到文件，然后在下次操作时，可以用此文件做仓库的初始化。这是在考虑到程序的友好性后增加的功能。<br />
+无论是手动创建还是从文件导入，方法是大同小异的。<br />
+本模块时间复杂度：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>（快速排序<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>）<br />
+二、入库、出库、查询、盘点仓库<br />
+时间复杂度均为：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span><br />
+考虑到程序的友好性，对入库、出库、查询的拒绝操作均给出具体信息。比如，在出库时如果库存数量小于待出库数量，则先显示当前库存，然后提示库存数量不足。<br />
+三、其他<br />
+菜单和主函数设计中，由于经常需要检测输入数字是否在某一范围内，使得生成大量重复代码。于是，将这些代码设计成函数，增加了代码的可读性。并且考虑到，用户的误输入（非数字）会导致程序崩溃，设计了正则表达式匹配，检测用户输入。<br />
+函数代码如下：</p>
+<figure class="highlight cpp"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 输入from至end范围内的数字</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">input_number</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> select&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="built_in">string</span> input;</span><br><span class="line">    <span class="function">regex <span class="title">r</span><span class="params">(<span class="string">&quot;[0-9]*&quot;</span>)</span></span>;  <span class="comment">// 正则表达式:数字0-9，可以出现多次</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; input;</span><br><span class="line">        <span class="keyword">bool</span> isNumber = regex_match(input,r);</span><br><span class="line">        <span class="keyword">if</span> (!isNumber)  <span class="comment">// 如果input和正则表达式匹配</span></span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;输入错误，请输入数字&quot;</span> &lt;&lt; from &lt;&lt; <span class="string">&quot;-&quot;</span> &lt;&lt; end &lt;&lt; <span class="string">&quot;:&quot;</span>;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            select = atoi(input.c_str());</span><br><span class="line">            <span class="keyword">if</span> (select &lt; from || select &gt; end)</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;输入错误，重新输入&quot;</span> &lt;&lt; from &lt;&lt; <span class="string">&quot;-&quot;</span> &lt;&lt; end &lt;&lt; <span class="string">&quot;:&quot;</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> select;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>另外一个是，如果用户在初始化仓库的情况下，进行入库、出库等操作，亦会导致程序崩溃。所以，后来在有序表中增加了一个参数<code>isInit</code>，用于指示当前有序表是否已经初始化。在每次操作之前，检测是否已经初始化，这样避免了这一类型的崩溃。</p>
+
+        <h2 id="用户手册"   >
+          <a href="#用户手册" class="heading-link"><i class="fas fa-link"></i></a>用户手册</h2>
+      
+<p>启动本程序后，按照菜单的提示进行操作即可。<br />
+注意：</p>
+<ol>
+<li>第一步必须先初始化仓库，否则，您无法进行其他的操作，将返回“仓库还未初始化!”。</li>
+<li>初始化仓库时，可以选择“2.从外部文件导入”，但前提是，该外部文件要存在，且是以前程序生成的导出合法文件。否则，不存在的文件将提示“没有文件/文件无法打开”，不是合法文件将提示“文件内容不符合要求”，这会导致初始化仓库失败。所以，请检查您输入的文件名和文件内容！</li>
+<li>建议在入库操作之前先显示仓库，确保增加仓库中某一电脑型号的数量时，输入的价格和仓库中一致；</li>
+<li>建议在出库操作之前先显示仓库，确保仓库中有您想要出库的电脑型号，以及其数量充足；</li>
+<li>您可以选择菜单项“7.重新对仓库排序”，按照您喜爱的方式对仓库排序，本程序提供了四种主要排序方式：1-按照价格升序、2-按照价格降序、3-按照数量升序、4-按照数量降序</li>
+<li>建议每次结束程序前，导出仓库数据到文件，这样可以保存仓库数据，方便下次操作。</li>
+</ol>
+
+        <h2 id="测试过程"   >
+          <a href="#测试过程" class="heading-link"><i class="fas fa-link"></i></a>测试过程</h2>
+      
+<p>本设计给出了一个输入文件info.txt<br />
+内容如下：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Computer Warehouse Data</span><br><span class="line">The information is as follows:</span><br><span class="line">Sort Way: 1 (Ascending by price)</span><br><span class="line">Total Type: 12</span><br><span class="line">RedmiBook-14 3299 30</span><br><span class="line">Dell-G5 5699 14</span><br><span class="line">Surface-Pro-7 5788 20</span><br><span class="line">Lenovo-Air14 5999 17</span><br><span class="line">Lenovo-R7000 6057 12</span><br><span class="line">Lenovo-Yoga14 6299 8</span><br><span class="line">Lenovo-Pro14 6299 10</span><br><span class="line">MiBook-Pro-15.6 6999 13</span><br><span class="line">Dell-G3 6999 15</span><br><span class="line">Dell-XPS13 8888 5</span><br><span class="line">MacBook-Pro-13 9199 5</span><br><span class="line">MacBook-Pro-16 17399 3</span><br></pre></td></tr></table></div></figure>
+<p>下面是各种操作的输出结果（截图）：<br />
+1、菜单显示<br />
+<img src="https://img-blog.csdnimg.cn/20201230130624751.png" alt="" /><br />
+2、初始化仓库<br />
+<img src="https://img-blog.csdnimg.cn/20201230130657360.png" alt="" /><br />
+3、显示仓库<br />
+<img src="https://img-blog.csdnimg.cn/20201230130710167.png" alt="" /><br />
+4、入库<br />
+入库Dell-G5 5699 2：<br />
+<img src="https://img-blog.csdnimg.cn/20201230130738804.png" alt="" /><br />
+入库后显示仓库：<br />
+<img   src="https://img-blog.csdnimg.cn/20201230130831651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /><br />
+入库Huawei-MateBook-X 8999 2：<br />
+<img src="https://img-blog.csdnimg.cn/20201230130908589.png" alt="" /><br />
+入库后显示仓库：<br />
+<img   src="https://img-blog.csdnimg.cn/20201230130855122.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /><br />
+5、出库<br />
+出库Huawei-MateBook-X 2:<br />
+<img src="https://img-blog.csdnimg.cn/20201230130940342.png" alt="" /><br />
+出库后显示仓库：<br />
+<img   src="https://img-blog.csdnimg.cn/20201230131001590.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /><br />
+6、查询<br />
+查询Lenovo-Pro14<br />
+<img src="https://img-blog.csdnimg.cn/20201230131032662.png" alt="" /><br />
+7、盘点仓库<br />
+<img   src="https://img-blog.csdnimg.cn/20201230131107402.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /><br />
+8、重新对仓库排序<br />
+按数量升序对仓库排序：<br />
+<img src="https://img-blog.csdnimg.cn/20201230131131645.png" alt="" /><br />
+显示重新排序后的仓库：<br />
+<img   src="https://img-blog.csdnimg.cn/20201230131144395.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZw==,size_16,color_FFFFFF,t_70" style="width: image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,tepx;height: t_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hzaW5nWWFuZwpx;"  alt="" /></p>
+
+        <h1 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a>总结</h1>
+      
+<p>通过本次课程设计，在数据结构课程中所学到的顺序表基础上，实现了有序表，并通过基本数据元素（<code>Computer</code>）和数据结构（<code>SqList</code>）的设计，实现了简易的仓库管理系统。<br />
+在本次课程设计中，也学习到很多的C++的知识，如STL中数据结构与算法的应用（<code>vector</code>、<code>sort</code>）、文件流（<code>fstream</code>）。<br />
+通过设计输入输出文件的功能，解决了以往繁琐的数据输入步骤。同时，也增加了程序的友好性。<br />
+通过输入检测、正则表达式匹配，解决了非法输入导致程序崩溃的问题。<br />
+但限于编程能力，本程序仍存在某些问题，如初始化时，没有对输入相同型号的数据做处理，这是程序的改进方向。</p>
+
+        <h1 id="参考文献"   >
+          <a href="#参考文献" class="heading-link"><i class="fas fa-link"></i></a>参考文献</h1>
+      
+<blockquote>
+<p>严蔚敏，吴伟民.数据结构（C语言版）[M]. 北京：清华大学出版社，1997.</p>
+</blockquote>
+<blockquote>
+<p>严薇敏，吴卫民.数据结构题集（C 语言版）[M].北京：清华大学出版社，1997.</p>
+</blockquote>
+<blockquote>
+<p>[美]Y.Danie Liang. C++程序设计.[M].北京：机械工业出版社，2015.</p>
+</blockquote>
+<blockquote>
+<p>Michael Wong，IBM XL编译器中国开发团队.深入理解C<ins>11：C</ins>11新特性解析与应用.[M].北京：机械工业出版社，2013.</p>
+</blockquote>
+
+        <h1 id="附录"   >
+          <a href="#附录" class="heading-link"><i class="fas fa-link"></i></a>附录</h1>
+      
+<p>源代码见<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://github.com/DianDengJun/Course-Design/tree/main/Data%20Structure" >Github仓库</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://www.xxdiandeng.cn">点灯君</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://www.xxdiandeng.cn/2020/12/30/course-design-of-data-structure/">https://www.xxdiandeng.cn/2020/12/30/course-design-of-data-structure/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://www.xxdiandeng.cn/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://www.xxdiandeng.cn/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/">课程设计</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://www.xxdiandeng.cn/tags/C/">C++</a></span></div><div class="post-share"><div class="social-share" data-sites="qzone, qq, weibo, wechat">分享到： </div></div><div class="post-reward reward"><div class="reward-button">请我喝杯咖啡~</div><div class="reward-qrcode"><span class="reward-qrcode-alipay"><img class="reward-qrcode-alipay__img" src="/images/alipay.png"><div class="reward-qrcode-alipay__text">支付宝打赏</div></span><span class="reward-qrcode-wechat"><img class="reward-qrcode-wechat__img" src="/images/wechatpay.png"><div class="reward-qrcode-wechat__text">微信打赏</div></span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2020/12/06/database-course-design/"><span class="paginator-prev__text">《数据库原理及应用》考查报告</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E4%B8%8E%E8%A6%81%E6%B1%82"><span class="toc-number">1.</span> <span class="toc-text">
+          题目与要求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">
+          问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%B6%89%E5%8F%8A%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">
+          系统涉及知识点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E8%A6%81%E6%B1%82"><span class="toc-number">1.3.</span> <span class="toc-text">
+          功能要求</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">
+          功能设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9A%E4%B9%89"><span class="toc-number">2.1.</span> <span class="toc-text">
+          数据结构定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%9B%BE"><span class="toc-number">2.2.</span> <span class="toc-text">
+          模块图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E5%BA%93"><span class="toc-number">2.2.1.</span> <span class="toc-text">
+          入库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BA%E5%BA%93"><span class="toc-number">2.2.2.</span> <span class="toc-text">
+          出库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%A3%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">
+          功能代码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8A%A8%E6%80%81%E9%A1%BA%E5%BA%8F%E8%A1%A8"><span class="toc-number">3.1.</span> <span class="toc-text">
+          初始化动态顺序表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BB%93%E5%BA%93"><span class="toc-number">3.2.</span> <span class="toc-text">
+          创建（初始化）仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E4%BB%93%E5%BA%93"><span class="toc-number">3.3.</span> <span class="toc-text">
+          显示仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A5%E5%BA%93-2"><span class="toc-number">3.4.</span> <span class="toc-text">
+          入库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BA%E5%BA%93-2"><span class="toc-number">3.5.</span> <span class="toc-text">
+          出库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E7%94%B5%E8%84%91%E6%95%B0%E6%8D%AE"><span class="toc-number">3.6.</span> <span class="toc-text">
+          查询电脑数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%98%E7%82%B9%E4%BB%93%E5%BA%93"><span class="toc-number">3.7.</span> <span class="toc-text">
+          盘点仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%96%B0%E5%AF%B9%E4%BB%93%E5%BA%93%E6%8E%92%E5%BA%8F"><span class="toc-number">3.8.</span> <span class="toc-text">
+          重新对仓库排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E4%BB%93%E5%BA%93%E6%95%B0%E6%8D%AE%E5%88%B0%E6%96%87%E4%BB%B6"><span class="toc-number">3.9.</span> <span class="toc-text">
+          导出仓库数据到文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E4%B8%8E%E6%B5%8B%E8%AF%95"><span class="toc-number">4.</span> <span class="toc-text">
+          调试与测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E5%88%86%E6%9E%90"><span class="toc-number">4.1.</span> <span class="toc-text">
+          调试分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C"><span class="toc-number">4.2.</span> <span class="toc-text">
+          用户手册</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="toc-number">4.3.</span> <span class="toc-text">
+          测试过程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">
+          总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">6.</span> <span class="toc-text">
+          参考文献</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-number">7.</span> <span class="toc-text">
+          附录</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/avatar.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">点灯君</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/DianDengJun" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="https://blog.csdn.net/HsingYang" target="_blank" rel="noopener" data-popover="CSDN" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-cuttlefish"></i></span></a><a class="sidebar-ov-social-item" href="mailto:hsingyang@qq.com" target="_blank" rel="noopener" data-popover="邮箱" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="far fa-envelope"></i></span></a><a class="sidebar-ov-social-item" href="tencent://message?uin=2812838110" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-feed"><span class="sidebar-ov-feed-rss"><a class="sidebar-ov-feed-rss__link" href="/atom.xml" target="_blank" rel="noopener"><span class="sidebar-ov-feed-rss__icon"><i class="fas fa-rss"></i></span><span>RSS 订阅</span></a></span></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>点灯君</span><span class="footer__devider">|</span><span><a href="http://beian.miit.gov.cn/" rel="noopener" target="_blank">皖ICP备20012253号</a></span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v5.3.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.4.0</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__info">访问人数</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__info">浏览总量</span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="0,0,0" opacity="0.6" count="99" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><link href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" rel="stylesheet" type="text/css"><link href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/copy-tex.css" rel="stylesheet" type="text/css"><script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: 'hkHWPJDojPW5GzfOrjxlVO7j-gzGzoHsz',
+    appKey: 'igMm3PMMUpWh9KYa2Os2zAvs',
+    notify: true,
+    verify: true,
+    placeholder: '大佬请指教(❁´◡`❁)   <支持 MarkDown 语法>',
+    avatar: 'robohash',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: false,
+    lang: 'zh-cn' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.4.0"></script><script src="/js/stun-boot.js?v=2.4.0"></script><script src="/js/scroll.js?v=2.4.0"></script><script src="/js/header.js?v=2.4.0"></script><script src="/js/sidebar.js?v=2.4.0"></script><script type="application/json" src="/search.json"></script></body></html>
