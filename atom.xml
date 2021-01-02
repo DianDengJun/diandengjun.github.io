@@ -6,7 +6,7 @@
   <link href="https://www.xxdiandeng.cn/atom.xml" rel="self"/>
   
   <link href="https://www.xxdiandeng.cn/"/>
-  <updated>2020-12-31T12:27:52.554Z</updated>
+  <updated>2021-01-02T14:15:39.129Z</updated>
   <id>https://www.xxdiandeng.cn/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C++学习笔记1：基础知识</title>
+    <link href="https://www.xxdiandeng.cn/2021/01/02/cpp-study-note-1/"/>
+    <id>https://www.xxdiandeng.cn/2021/01/02/cpp-study-note-1/</id>
+    <published>2021-01-02T14:07:17.000Z</published>
+    <updated>2021-01-02T14:15:39.129Z</updated>
+    
+    
+    <summary type="html">C++程序基础、C语法的增强及对应的C++11特性</summary>
+    
+    
+    
+    <category term="学习笔记" scheme="https://www.xxdiandeng.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="C++" scheme="https://www.xxdiandeng.cn/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>致敬不平凡的2020年</title>
